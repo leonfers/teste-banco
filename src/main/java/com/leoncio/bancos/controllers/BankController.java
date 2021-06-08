@@ -1,34 +1,47 @@
 package com.leoncio.bancos.controllers;
 
 import com.leoncio.bancos.dto.BankDTO;
-import com.leoncio.bancos.dto.ResponseDTO;
+import com.leoncio.bancos.dto.Response;
+import com.leoncio.bancos.services.BankService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("banks")
 public class BankController {
+
+    private final BankService bankService;
+
+    @Autowired
+    public BankController(BankService bankService) {
+        this.bankService = bankService;
+    }
+
     @GetMapping(produces = "application/json")
-    public ResponseDTO list() {
-        throw new UnsupportedOperationException();
+    public Response list() {
+        List<BankDTO> banks = bankService.findAll();
+        return new Response(banks);
     }
 
     @GetMapping(path = "/{id}", produces = "application/json")
-    public ResponseDTO show(@PathVariable int id) {
+    public Response show(@PathVariable int id) {
         throw new UnsupportedOperationException();
     }
 
     @PutMapping(path = "/{id}", produces = "application/json")
-    public ResponseDTO edit(@PathVariable int id, @RequestBody BankDTO bankDTO) {
+    public Response edit(@PathVariable int id, @RequestBody BankDTO bankDTO) {
         throw new UnsupportedOperationException();
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseDTO create(@RequestBody BankDTO bankDTO) {
+    public Response create(@RequestBody BankDTO bankDTO) {
         throw new UnsupportedOperationException();
     }
 
     @DeleteMapping(path = "/{id}", produces = "application/json")
-    public ResponseDTO destroy(@PathVariable int id) {
+    public Response destroy(@PathVariable int id) {
         throw new UnsupportedOperationException();
     }
 }

@@ -1,10 +1,18 @@
 package com.leoncio.bancos.services;
 
 import com.leoncio.bancos.dto.UserDTO;
+import com.leoncio.bancos.repositories.UserRepository;
 
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
+
+    private UserRepository userRepository;
+
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @Override
     public UserDTO save(UserDTO userDTO) {
         return null;

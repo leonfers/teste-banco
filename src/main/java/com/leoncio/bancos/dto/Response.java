@@ -9,16 +9,16 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ResponseDTO implements BaseDTO {
+public class Response implements BaseDTO {
 
-    private BaseDTO data;
+    private Object data;
     private List<Error> errors;
 
-    public ResponseDTO(BaseDTO data) {
+    public Response(Object data) {
         this.data = data;
     }
 
-    public ResponseDTO(List<Error> errors) {
+    public Response(List<Error> errors) {
         this.errors = errors;
     }
 

@@ -4,10 +4,20 @@ import com.leoncio.bancos.dto.DepositDTO;
 import com.leoncio.bancos.dto.TransactionDTO;
 import com.leoncio.bancos.dto.TransferDTO;
 import com.leoncio.bancos.dto.WithdrawalDTO;
+import com.leoncio.bancos.repositories.TransactionRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TransactionServiceImpl implements TransactionService{
+
+    private final TransactionRepository transactionRepository;
+
+    public TransactionServiceImpl(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
+
     @Override
     public TransactionDTO save(TransactionDTO customerDTO) {
         return null;

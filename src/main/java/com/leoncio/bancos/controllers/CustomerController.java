@@ -1,7 +1,7 @@
 package com.leoncio.bancos.controllers;
 
 import com.leoncio.bancos.dto.CustomerDTO;
-import com.leoncio.bancos.dto.ResponseDTO;
+import com.leoncio.bancos.dto.Response;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -9,27 +9,27 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
 
     @GetMapping(produces = "application/json")
-    public ResponseDTO list() {
+    public Response list() {
         throw new UnsupportedOperationException();
     }
 
     @GetMapping(path = "/{id}", produces = "application/json")
-    public ResponseDTO show(@PathVariable int id) {
+    public Response show(@PathVariable int id) {
         throw new UnsupportedOperationException();
     }
 
     @PutMapping(path = "/{id}", produces = "application/json")
-    public ResponseDTO edit(@PathVariable int id, @RequestBody CustomerDTO customerDTO) {
+    public Response edit(@PathVariable int id, @RequestBody CustomerDTO customerDTO) {
         throw new UnsupportedOperationException();
     }
 
     @PostMapping(produces = "application/json")
-    public ResponseDTO create(@RequestBody CustomerDTO customerDTO) {
+    public Response create(@RequestBody CustomerDTO customerDTO) {
         throw new UnsupportedOperationException();
     }
 
     @DeleteMapping(path = "/{id}", produces = "application/json")
-    public ResponseDTO destroy(@PathVariable int id) {
+    public Response destroy(@PathVariable int id) {
         throw new UnsupportedOperationException();
     }
 }
