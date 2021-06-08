@@ -9,6 +9,8 @@ public class Account {
     private Integer id;
     private String code;
     private Branch branch;
+    private Customer customer;
+    private Bank bank;
     private LocalDateTime openingDate;
     private BigDecimal balance;
 
@@ -37,6 +39,24 @@ public class Account {
 
     public void setBranch(Branch branch) {
         this.branch = branch;
+    }
+
+    @ManyToOne
+    public Bank getBank() {
+        return bank;
+    }
+
+    public void setBank(Bank bank) {
+        this.bank = bank;
+    }
+
+    @ManyToOne
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public LocalDateTime getOpeningDate() {

@@ -16,7 +16,6 @@ public class Bank {
     private String name;
     private String code;
     private List<Branch> branches;
-    private List<Customer> customers;
     private List<Account> accounts;
 
     public void setId(Integer id) {
@@ -52,15 +51,6 @@ public class Bank {
 
     public void setBranches(List<Branch> branches) {
         this.branches = branches;
-    }
-
-    @OneToMany(mappedBy = "bank", fetch = FetchType.LAZY)
-    public List<Customer> getCustomers() {
-        return customers;
-    }
-
-    public void setCustomers(List<Customer> customers) {
-        this.customers = customers;
     }
 
     @OneToMany(mappedBy = "bank", fetch = FetchType.LAZY)

@@ -5,7 +5,8 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class Transaction {
+@DiscriminatorColumn(name="DTYPE")
+public class Transaction {
     private Integer id;
 
     public void setId(Integer id) {
