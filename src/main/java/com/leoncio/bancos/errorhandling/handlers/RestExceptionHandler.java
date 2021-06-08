@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@ControllerAdvice ("com.leoncio.bancos.controllers")
+@ControllerAdvice("com.leoncio.bancos.controllers")
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+
     public static final String TRACE = "trace";
 
     @Override

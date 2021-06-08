@@ -23,12 +23,12 @@ public class TransactionController {
         throw new UnsupportedOperationException();
     }
 
-    @PostMapping(path = "/withdrawal", produces = "application/json")
+    @PostMapping(path = "/deposit", produces = "application/json")
     public ResponseDTO deposit(@RequestBody DepositDTO depositDTO) {
         throw new UnsupportedOperationException();
     }
 
-    @PostMapping(path = "/withdrawal", produces = "application/json")
+    @PostMapping(path = "/transfer", produces = "application/json")
     public ResponseDTO transfer(@RequestBody TransferDTO transferDTO) {
         throw new UnsupportedOperationException();
     }
