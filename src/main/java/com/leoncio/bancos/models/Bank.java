@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -15,8 +16,8 @@ public class Bank {
     private Integer id;
     private String name;
     private String code;
-    private List<Branch> branches;
-    private List<Account> accounts;
+    private List<Branch> branches = new ArrayList<>();
+    private List<Account> accounts = new ArrayList<>();
 
     public void setId(Integer id) {
         this.id = id;

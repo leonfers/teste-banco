@@ -1,7 +1,6 @@
 package com.leoncio.bancos.services;
 
 import com.leoncio.bancos.dto.BankDTO;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,6 +12,6 @@ public interface BankService {
 
     public List<BankDTO> findAll();
 
-    public void destroy();
+    public void destroy(Integer id);
 
 }

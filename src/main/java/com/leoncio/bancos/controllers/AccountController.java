@@ -2,11 +2,21 @@ package com.leoncio.bancos.controllers;
 
 import com.leoncio.bancos.dto.AccountDTO;
 import com.leoncio.bancos.dto.Response;
+import com.leoncio.bancos.services.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("accounts")
 public class AccountController {
+
+    private final AccountService accountService;
+
+    @Autowired
+    public AccountController(AccountService accountService) {
+        this.accountService = accountService;
+    }
+
     @GetMapping(produces = "application/json")
     public Response list() {
         throw new UnsupportedOperationException();

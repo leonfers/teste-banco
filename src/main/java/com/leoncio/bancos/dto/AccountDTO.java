@@ -19,6 +19,8 @@ public class AccountDTO implements BaseDTO {
     private List<CustomerDTO> customers = new ArrayList<>();
     private List<AccountDTO> accounts = new ArrayList<>();
 
+
+
     @Override
     public String toString() {
         return "AccountDTO{" +

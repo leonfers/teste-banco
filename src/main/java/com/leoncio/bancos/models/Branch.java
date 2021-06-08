@@ -1,6 +1,7 @@
 package com.leoncio.bancos.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -8,7 +9,7 @@ public class Branch {
     private Integer id;
     private Bank bank;
     private String address;
-    private List<Account> accounts;
+    private List<Account> accounts = new ArrayList<>();
 
     public void setId(Integer id) {
         this.id = id;
