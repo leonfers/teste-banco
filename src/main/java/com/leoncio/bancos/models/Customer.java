@@ -5,6 +5,7 @@ import java.util.List;
 
 @Entity
 public class Customer {
+
     private Integer id;
     private String code;
     private String name;
@@ -46,6 +47,7 @@ public class Customer {
         this.accounts = accounts;
     }
 
+    @Column(unique = true)
     public String getCode() {
         return code;
     }

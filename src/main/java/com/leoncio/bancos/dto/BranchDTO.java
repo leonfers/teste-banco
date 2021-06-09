@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BranchDTO  implements BaseDTO{
+public class BranchDTO {
 
     private Integer id;
     private String code;
@@ -30,15 +30,5 @@ public class BranchDTO  implements BaseDTO{
         this.code = branch.getCode();
         this.bankCode = branch.getBank().getCode();
         this.address = branch.getAddress();
-    }
-
-    @Override
-    public String toString() {
-        return "BranchDTO{" +
-                "code='" + code + '\'' +
-                ", bankCode='" + bankCode + '\'' +
-                ", address='" + address + '\'' +
-                ", accounts=" + accounts +
-                '}';
     }
 }

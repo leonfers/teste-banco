@@ -4,25 +4,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
-public class BranchForm implements BaseForm {
+public class BranchForm {
 
+    @NotBlank(message = "Code is mandatory")
     private String code;
-    private String bankCode;
-    private String address;
-    private List<AccountForm> accounts;
 
-    @Override
-    public String toString() {
-        return "BranchDTO{" +
-                "code='" + code + '\'' +
-                ", bankCode='" + bankCode + '\'' +
-                ", address='" + address + '\'' +
-                ", accounts=" + accounts +
-                '}';
-    }
+    @NotBlank(message = "Bank code is mandatory")
+    private String bankCode;
+
+    @NotBlank(message = "Address is mandatory")
+    private String address;
 }

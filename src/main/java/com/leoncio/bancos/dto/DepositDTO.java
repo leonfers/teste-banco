@@ -23,14 +23,4 @@ public class DepositDTO  implements TransactionDTO {
         this.amount = depositForm.getAmount();
     }
 
-    @Override
-    public String toString() { //TODO
-        return "TransferDTO{" +
-                ", targetAccount='" + destinyAccountCode + '\'' +
-                ", amount='" + amount + '\'' +
-                ", date=" + date +
-                '}';
-    }
-
-
 }

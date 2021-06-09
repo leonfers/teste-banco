@@ -9,20 +9,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserDTO  implements BaseDTO{
+public class UserDTO {
 
     private String username;
     private String email;
     private String password;
     private LocalDateTime createdAt;
-
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
-    }
 }

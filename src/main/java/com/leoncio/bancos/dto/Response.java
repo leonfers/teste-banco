@@ -5,33 +5,24 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Response implements BaseDTO {
+public class Response {
 
     private Object data;
-    private List<Error> errors;
+    private List<ErrorDTO> errors;
 
     public Response(Object data) {
         this.data = data;
         this.errors = null;
     }
 
-    public Response(List<Error> errors) {
+    public Response(List<ErrorDTO> errors) {
         this.errors = errors;
         this.data = null;
-    }
-
-    @Override
-    public String toString() {
-        return "Response{" +
-                "data=" + data +
-                ", errors=" + errors +
-                '}';
     }
 }

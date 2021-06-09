@@ -11,24 +11,12 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @NoArgsConstructor
-public class BankForm implements BaseForm {
+public class BankForm {
 
-    @NotBlank(message = "code: Código é obrigatório")
+    @NotBlank(message = "Code is mandatory")
     private String code;
 
-    @NotBlank(message = "name: Nome é obrigatório")
+    @NotBlank(message = "Name is mandatory")
     private String name;
 
-    public BankForm(Bank bank){
-        this.code = bank.getCode();
-        this.name = bank.getName();
-    }
-
-    @Override
-    public String toString() {
-        return "BankForm{" +
-                "code='" + code + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

@@ -6,6 +6,8 @@ import com.leoncio.bancos.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("users")
 public class UserController {
@@ -28,12 +30,12 @@ public class UserController {
     }
 
     @PutMapping(path = "/{id}", produces = "application/json")
-    public Response edit(@PathVariable int id, @RequestBody UserDTO userDTO) {
+    public Response edit(@PathVariable int id, @RequestBody @Valid UserDTO userDTO) {
         throw new UnsupportedOperationException();
     }
 
     @PostMapping(produces = "application/json")
-    public Response create(@RequestBody UserDTO userDTO) {
+    public Response create(@RequestBody @Valid UserDTO userDTO) {
         throw new UnsupportedOperationException();
     }
 

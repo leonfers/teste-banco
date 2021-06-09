@@ -8,12 +8,11 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
 @Setter
-public class BankDTO implements BaseDTO {
+public class BankDTO {
 
     private Integer id;
     private String code;
@@ -31,12 +30,4 @@ public class BankDTO implements BaseDTO {
         this.name = bank.getName();
     }
 
-    @Override
-    public String toString() {
-        return "BankDTO{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
-                ", accounts=" + accounts +
-                '}';
-    }
 }

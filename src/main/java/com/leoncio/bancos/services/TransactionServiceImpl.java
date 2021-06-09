@@ -4,21 +4,28 @@ import com.leoncio.bancos.dto.DepositDTO;
 import com.leoncio.bancos.dto.TransactionDTO;
 import com.leoncio.bancos.dto.TransferDTO;
 import com.leoncio.bancos.dto.WithdrawalDTO;
+import com.leoncio.bancos.errorhandling.exceptions.IllegalTransactionException;
+import com.leoncio.bancos.errorhandling.exceptions.ItemNotFoundException;
 import com.leoncio.bancos.models.Account;
 import com.leoncio.bancos.models.Deposit;
 import com.leoncio.bancos.models.Transfer;
-import com.leoncio.bancos.models.Withdrawl;
+import com.leoncio.bancos.models.Withdrawal;
 import com.leoncio.bancos.repositories.AccountRepository;
 import com.leoncio.bancos.repositories.TransactionRepository;
+import org.hibernate.StaleObjectStateException;
+import org.hibernate.exception.LockAcquisitionException;
+import org.springframework.dao.CannotAcquireLockException;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class TransactionServiceImpl implements TransactionService{
+public class TransactionServiceImpl implements TransactionService {
 
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
@@ -44,30 +51,35 @@ public class TransactionServiceImpl implements TransactionService{
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public WithdrawalDTO doWithdrawal(WithdrawalDTO withdrawalDTO) {
-        try{
             Account origin = accountRepository.findByCode(withdrawalDTO.getOriginAccountCode());
-            Withdrawl withdrawl = new Withdrawl();
-            withdrawl.setAmount(withdrawalDTO.getAmount());
-            withdrawl.setDate(LocalDateTime.now());
-            withdrawl.setOrigin(origin);
-            transactionRepository.save(withdrawl);
-            origin.setBalance(origin.getBalance().subtract(withdrawl.getAmount()));
+            if (origin == null) {
+                throw new ItemNotFoundException("Could not find account with " + withdrawalDTO.getOriginAccountCode() + " account code");
+            }
+            if (origin.getBalance().subtract(withdrawalDTO.getAmount()).compareTo(BigDecimal.ZERO) < 0) {
+                throw new ItemNotFoundException("Insufficient funds to complete withdrawal (" + origin.getBalance() + ")");
+            }
+
+            Withdrawal withdrawal = new Withdrawal();
+            withdrawal.setAmount(withdrawalDTO.getAmount());
+            withdrawal.setDate(LocalDateTime.now());
+            withdrawal.setOrigin(origin);
+            transactionRepository.save(withdrawal);
+            origin.setBalance(origin.getBalance().subtract(withdrawal.getAmount()));
             accountRepository.save(origin);
-            withdrawalDTO.setId(withdrawl.getId());
-            withdrawalDTO.setDate(withdrawl.getDate());
+            withdrawalDTO.setId(withdrawal.getId());
+            withdrawalDTO.setDate(withdrawal.getDate());
             return withdrawalDTO;
-        }catch (OptimisticLockingFailureException ex){
-            // retry transaction
-            return doWithdrawal(withdrawalDTO);
-        }
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public DepositDTO doDeposit(DepositDTO depositDTO) {
-        try{
             Account destiny = accountRepository.findByCode(depositDTO.getDestinyAccountCode());
+            if (destiny == null) {
+                throw new ItemNotFoundException("Could not find account with " + depositDTO.getDestinyAccountCode() + " account code");
+            }
             Deposit deposit = new Deposit();
             deposit.setAmount(depositDTO.getAmount());
             deposit.setDate(LocalDateTime.now());
@@ -78,32 +90,35 @@ public class TransactionServiceImpl implements TransactionService{
             depositDTO.setId(deposit.getId());
             depositDTO.setDate(deposit.getDate());
             return depositDTO;
-        }catch (OptimisticLockingFailureException ex){
-            // retry transaction
-            return doDeposit(depositDTO);
-        }
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public TransferDTO doTransfer(TransferDTO transferDTO) {
-        try{
-            Account origin = accountRepository.findByCode(transferDTO.getOriginAccountCode());
-            Account destiny = accountRepository.findByCode(transferDTO.getDestinyAccountCode());
-            Transfer transfer = new Transfer();
-            transfer.setAmount(transferDTO.getAmount());
-            transfer.setDate(LocalDateTime.now());
-            transfer.setDestiny(destiny);
-            transactionRepository.save(transfer);
-            origin.setBalance(destiny.getBalance().subtract(transfer.getAmount()));
-            destiny.setBalance(destiny.getBalance().add(transfer.getAmount()));
-            accountRepository.save(destiny);
-            transferDTO.setId(transfer.getId());
-            transferDTO.setDate(transfer.getDate());
-            return transferDTO;
-        }catch (OptimisticLockingFailureException ex){
-            // retry transaction
-            return doTransfer(transferDTO);
+        Account origin = accountRepository.findByCode(transferDTO.getOriginAccountCode());
+        Account destiny = accountRepository.findByCode(transferDTO.getDestinyAccountCode());
+        if (origin == null) {
+            throw new ItemNotFoundException("Could not find account with " + transferDTO.getOriginAccountCode() + " account code");
         }
+        if (destiny == null) {
+            throw new ItemNotFoundException("Could not find account with " + transferDTO.getDestinyAccountCode() + " account code");
+        }
+        if (origin.getBalance().subtract(transferDTO.getAmount()).compareTo(BigDecimal.ZERO) < 0) {
+            throw new ItemNotFoundException("Insufficient funds to complete transfer (" + origin.getBalance() + ")");
+        }
+        Transfer transfer = new Transfer();
+        transfer.setAmount(transferDTO.getAmount());
+        transfer.setDate(LocalDateTime.now());
+        transfer.setOrigin(origin);
+        transfer.setDestiny(destiny);
+        transactionRepository.save(transfer);
+        origin.setBalance(origin.getBalance().subtract(transfer.getAmount()));
+        destiny.setBalance(destiny.getBalance().add(transfer.getAmount()));
+        accountRepository.save(origin);
+        accountRepository.save(destiny);
+        transferDTO.setId(transfer.getId());
+        transferDTO.setDate(transfer.getDate());
+        return transferDTO;
     }
 
     @Override
