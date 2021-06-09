@@ -31,17 +31,6 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @GetMapping(produces = "application/json")
-    public Response list() {
-        throw new UnsupportedOperationException();
-    }
-
-    @GetMapping(path = "/{id}", produces = "application/json")
-    public Response show(@PathVariable int id) {
-        throw new UnsupportedOperationException();
-    }
-
-
     @PostMapping(path = "/withdrawal", produces = "application/json")
     public Response withdrawal(@RequestBody @Valid WithdrawalForm withdrawalForm) {
         while (true) {
@@ -75,10 +64,5 @@ public class TransactionController {
             }
         }
 
-    }
-
-    @DeleteMapping(path = "/{id}", produces = "application/json")
-    public Response destroy(@PathVariable int id) {
-        throw new UnsupportedOperationException();
     }
 }

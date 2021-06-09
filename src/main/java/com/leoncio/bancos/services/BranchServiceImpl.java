@@ -29,14 +29,19 @@ public class BranchServiceImpl implements BranchService {
     @Override
     public BranchDTO save(BranchDTO branchDTO) {
         try {
+            Branch branch;
+            if (branchDTO.getId() == null) {
+                branch = new Branch();
+            } else {
+                branch = this.branchRepository.getById(branchDTO.getId());
+            }
             Bank bank = bankRepository.findByCode(branchDTO.getCode());
-            Branch branch = new Branch();
             branch.setBank(bank);
             branch.setCode(branchDTO.getCode());
             branchRepository.save(branch);
             branchDTO.setId(branch.getId());
             return branchDTO;
-        } catch (ConstraintViolationException| DataIntegrityViolationException ex) {
+        } catch (ConstraintViolationException | DataIntegrityViolationException ex) {
             throw new DuplicateFoundException("Is not possible to create two branch with the same code at the same bank");
         }
     }
@@ -53,7 +58,8 @@ public class BranchServiceImpl implements BranchService {
     }
 
     @Override
-    public void destroy() {
-
+    public String destroy(Integer id) {
+        branchRepository.deleteById(id);
+        return "Branch deleted";
     }
 }

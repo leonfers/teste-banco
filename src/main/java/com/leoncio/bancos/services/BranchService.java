@@ -14,6 +14,6 @@ public interface BranchService {
 
     public List<BranchDTO> findAll();
 
-    public void destroy();
+    public String destroy(Integer id);
 
 }

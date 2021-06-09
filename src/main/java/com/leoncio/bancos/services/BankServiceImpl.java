@@ -27,7 +27,12 @@ public class BankServiceImpl implements BankService {
     @Override
     public BankDTO save(BankDTO bankDTO) {
         try {
-            Bank bank = new Bank();
+            Bank bank;
+            if(bankDTO.getId()==null){
+                bank = new Bank();
+            }else{
+                bank = bankRepository.getById(bankDTO.getId());
+            }
             bank.setCode(bankDTO.getCode());
             bank.setName(bankDTO.getName());
             bankRepository.save(bank);
@@ -55,7 +60,8 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public void destroy(Integer id) {
+    public String destroy(Integer id) {
         bankRepository.deleteById(id);
+        return "Bank deleted";
     }
 }

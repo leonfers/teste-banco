@@ -31,21 +31,6 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public TransactionDTO save(TransactionDTO customerDTO) {
-        return null;
-    }
-
-    @Override
-    public TransactionDTO findById(Integer id) {
-        return null;
-    }
-
-    @Override
-    public List<TransactionDTO> findAll() {
-        return null;
-    }
-
-    @Override
     @Transactional(rollbackFor = Exception.class)
     public WithdrawalDTO doWithdrawal(WithdrawalDTO withdrawalDTO) {
             Optional<Account> origin = accountRepository.findById(withdrawalDTO.getOriginAccountId());
@@ -114,10 +99,5 @@ public class TransactionServiceImpl implements TransactionService {
         transferDTO.setId(transfer.getId());
         transferDTO.setDate(transfer.getDate());
         return transferDTO;
-    }
-
-    @Override
-    public void destroy() {
-
     }
 }

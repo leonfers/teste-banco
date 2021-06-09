@@ -12,6 +12,6 @@ public interface BankService {
 
     public List<BankDTO> findAll();
 
-    public void destroy(Integer id);
+    public String destroy(Integer id);
 
 }
