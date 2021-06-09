@@ -1,0 +1,44 @@
+package com.leoncio.bancos.controllers;
+
+import com.leoncio.bancos.dto.Response;
+import com.leoncio.bancos.dto.UserDTO;
+import com.leoncio.bancos.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("users")
+public class UserController {
+
+    private final UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping(produces = "application/json")
+    public Response list() {
+        throw new UnsupportedOperationException();
+    }
+
+    @GetMapping(path = "/{id}", produces = "application/json")
+    public Response show(@PathVariable int id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @PutMapping(path = "/{id}", produces = "application/json")
+    public Response edit(@PathVariable int id, @RequestBody UserDTO userDTO) {
+        throw new UnsupportedOperationException();
+    }
+
+    @PostMapping(produces = "application/json")
+    public Response create(@RequestBody UserDTO userDTO) {
+        throw new UnsupportedOperationException();
+    }
+
+    @DeleteMapping(path = "/{id}", produces = "application/json")
+    public Response destroy(@PathVariable int id) {
+        throw new UnsupportedOperationException();
+    }
+}
