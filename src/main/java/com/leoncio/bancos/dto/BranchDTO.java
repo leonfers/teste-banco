@@ -16,6 +16,7 @@ public class BranchDTO {
     private Integer id;
     private String code;
     private String bankCode;
+    private String bankName;
 
     public BranchDTO(BranchForm branchForm) {
         this.code = branchForm.getCode();
@@ -26,5 +27,6 @@ public class BranchDTO {
         this.id = branch.getId();
         this.code = branch.getCode();
         this.bankCode = branch.getBank().getCode();
+        this.bankName = branch.getBank().getName();
     }
 }

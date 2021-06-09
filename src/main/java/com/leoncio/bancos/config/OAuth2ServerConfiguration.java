@@ -81,10 +81,10 @@ public class OAuth2ServerConfiguration {
                     .inMemory()
                     .withClient(System.getProperty("CLIENT_ID"))
                     .authorizedGrantTypes("password", "authorization_code", "refresh_token").scopes("all")
-                    .refreshTokenValiditySeconds(300)
+                    .refreshTokenValiditySeconds(3600)
                     .resourceIds(RESOURCE_ID)
                     .secret(passwordEncoder.encode(System.getProperty("CLIENT_SECRET")))
-                    .accessTokenValiditySeconds(86400);
+                    .accessTokenValiditySeconds(300);
 
         }
 
