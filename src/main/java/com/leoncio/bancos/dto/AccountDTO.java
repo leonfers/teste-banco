@@ -15,23 +15,20 @@ import java.time.LocalDateTime;
 public class AccountDTO {
 
     private Integer id;
-    private String code;
     private String branchCode;
-    private String customerCode;
+    private Integer userId;
     private BigDecimal balance;
     private LocalDateTime openingDate;
 
     public AccountDTO(AccountForm accountForm) {
-        this.code = accountForm.getCode();
         this.branchCode = accountForm.getBranch_code();
-        this.customerCode = accountForm.getCustomer_code();
     }
 
     public AccountDTO(Account account) {
         this.id = account.getId();
-        this.code = account.getCode();
+        this.userId = account.getUser().getId();
         this.balance = account.getBalance();
-        this.customerCode = account.getCustomer().getCode();
+        this.userId = account.getUser().getId();
         this.branchCode = account.getBranch().getCode();
         this.openingDate = account.getOpeningDate();
     }

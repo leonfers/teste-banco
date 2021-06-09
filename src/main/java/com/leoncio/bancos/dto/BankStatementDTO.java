@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 public class BankStatementDTO {
 
-    private String accountCode;
+    private Integer accountId;
     private List<WithdrawalDTO> withdrawals;
     private List<DepositDTO> deposits;
     private List<TransferDTO> transfers;
@@ -42,7 +42,7 @@ public class BankStatementDTO {
                 .map(DepositDTO::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         BigDecimal totalIncomingTransfers = transfers.stream()
-                .filter(transferDTO -> transferDTO.getDestinyAccountCode().equals(this.accountCode))
+                .filter(transferDTO -> transferDTO.getDestinyAccountId().equals(this.accountId))
                 .map(TransferDTO::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         return totalDeposits.add(totalIncomingTransfers);
@@ -53,7 +53,7 @@ public class BankStatementDTO {
                 .map(WithdrawalDTO::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         BigDecimal totalOutgoingTransfers = transfers.stream()
-                .filter(transferDTO -> transferDTO.getOriginAccountCode().equals(this.accountCode))
+                .filter(transferDTO -> transferDTO.getOriginAccountId().equals(this.accountId))
                 .map(TransferDTO::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         return totalWithdrawals.add(totalOutgoingTransfers);

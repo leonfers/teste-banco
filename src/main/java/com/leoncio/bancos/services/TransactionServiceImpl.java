@@ -4,7 +4,6 @@ import com.leoncio.bancos.dto.DepositDTO;
 import com.leoncio.bancos.dto.TransactionDTO;
 import com.leoncio.bancos.dto.TransferDTO;
 import com.leoncio.bancos.dto.WithdrawalDTO;
-import com.leoncio.bancos.errorhandling.exceptions.IllegalTransactionException;
 import com.leoncio.bancos.errorhandling.exceptions.ItemNotFoundException;
 import com.leoncio.bancos.models.Account;
 import com.leoncio.bancos.models.Deposit;
@@ -12,12 +11,7 @@ import com.leoncio.bancos.models.Transfer;
 import com.leoncio.bancos.models.Withdrawal;
 import com.leoncio.bancos.repositories.AccountRepository;
 import com.leoncio.bancos.repositories.TransactionRepository;
-import org.hibernate.StaleObjectStateException;
-import org.hibernate.exception.LockAcquisitionException;
-import org.springframework.dao.CannotAcquireLockException;
-import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -53,9 +47,9 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public WithdrawalDTO doWithdrawal(WithdrawalDTO withdrawalDTO) {
-            Account origin = accountRepository.findByCode(withdrawalDTO.getOriginAccountCode());
+            Account origin = accountRepository.findByUserId(withdrawalDTO.getOriginAccountId());
             if (origin == null) {
-                throw new ItemNotFoundException("Could not find account with " + withdrawalDTO.getOriginAccountCode() + " account code");
+                throw new ItemNotFoundException("Could not find account with " + withdrawalDTO.getOriginAccountId() + " account code");
             }
             if (origin.getBalance().subtract(withdrawalDTO.getAmount()).compareTo(BigDecimal.ZERO) < 0) {
                 throw new ItemNotFoundException("Insufficient funds to complete withdrawal (" + origin.getBalance() + ")");
@@ -76,9 +70,9 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public DepositDTO doDeposit(DepositDTO depositDTO) {
-            Account destiny = accountRepository.findByCode(depositDTO.getDestinyAccountCode());
+            Account destiny = accountRepository.findByUserId(depositDTO.getDestinyAccountId());
             if (destiny == null) {
-                throw new ItemNotFoundException("Could not find account with " + depositDTO.getDestinyAccountCode() + " account code");
+                throw new ItemNotFoundException("Could not find account with " + depositDTO.getDestinyAccountId() + " account code");
             }
             Deposit deposit = new Deposit();
             deposit.setAmount(depositDTO.getAmount());
@@ -95,13 +89,13 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public TransferDTO doTransfer(TransferDTO transferDTO) {
-        Account origin = accountRepository.findByCode(transferDTO.getOriginAccountCode());
-        Account destiny = accountRepository.findByCode(transferDTO.getDestinyAccountCode());
+        Account origin = accountRepository.findByUserId(transferDTO.getOriginAccountId());
+        Account destiny = accountRepository.findByUserId(transferDTO.getDestinyAccountId());
         if (origin == null) {
-            throw new ItemNotFoundException("Could not find account with " + transferDTO.getOriginAccountCode() + " account code");
+            throw new ItemNotFoundException("Could not find account with id " + transferDTO.getOriginAccountId());
         }
         if (destiny == null) {
-            throw new ItemNotFoundException("Could not find account with " + transferDTO.getDestinyAccountCode() + " account code");
+            throw new ItemNotFoundException("Could not find account with id " + transferDTO.getDestinyAccountId());
         }
         if (origin.getBalance().subtract(transferDTO.getAmount()).compareTo(BigDecimal.ZERO) < 0) {
             throw new ItemNotFoundException("Insufficient funds to complete transfer (" + origin.getBalance() + ")");

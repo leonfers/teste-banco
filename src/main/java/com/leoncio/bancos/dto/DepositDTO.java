@@ -15,19 +15,19 @@ import java.time.LocalDateTime;
 public class DepositDTO  implements TransactionDTO, Comparable<TransactionDTO>{
 
     private Integer id;
-    private String destinyAccountCode;
+    private Integer destinyAccountId;
     private BigDecimal amount;
     private LocalDateTime date;
 
     public DepositDTO(DepositForm depositForm) {
-        this.destinyAccountCode = depositForm.getDestinyAccountCode();
+        this.destinyAccountId = depositForm.getDestinyAccountId();
         this.amount = depositForm.getAmount();
     }
 
     public DepositDTO(Deposit deposit) {
         this.amount = deposit.getAmount();
         this.date = deposit.getDate();
-        this.destinyAccountCode = deposit.getDestiny().getCode();
+        this.destinyAccountId = deposit.getDestiny().getId();
         this.id = deposit.getId();
     }
 

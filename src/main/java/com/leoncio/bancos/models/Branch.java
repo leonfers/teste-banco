@@ -1,17 +1,24 @@
 package com.leoncio.bancos.models;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"code", "bank_id"})})
 public class Branch {
     private Integer id;
     private String code;
     private Bank bank;
-    private String address;
     private List<Account> accounts = new ArrayList<>();
+
+    public Branch(String code, Bank bank) {
+        this.code = code;
+        this.bank = bank;
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -39,14 +46,6 @@ public class Branch {
 
     public void setBank(Bank bank) {
         this.bank = bank;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     @OneToMany(mappedBy = "branch", fetch = FetchType.LAZY)

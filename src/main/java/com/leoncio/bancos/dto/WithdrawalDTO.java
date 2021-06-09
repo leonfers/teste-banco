@@ -15,19 +15,19 @@ import java.time.LocalDateTime;
 public class WithdrawalDTO  implements TransactionDTO {
 
     private Integer id;
-    private String originAccountCode;
+    private Integer originAccountId;
     private BigDecimal amount;
     private LocalDateTime date;
 
     public WithdrawalDTO(WithdrawalForm withdrawalForm) {
-        this.originAccountCode = withdrawalForm.getOriginAccountCode();
+        this.originAccountId = withdrawalForm.getOriginAccountId();
         this.amount = withdrawalForm.getAmount();
     }
 
     public WithdrawalDTO(Withdrawal withdrawal) {
         this.amount = withdrawal.getAmount();
         this.date = withdrawal.getDate();
-        this.originAccountCode = withdrawal.getOrigin().getCode();
+        this.originAccountId = withdrawal.getOrigin().getId();
         this.id = withdrawal.getId();
     }
 
