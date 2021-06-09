@@ -2,9 +2,11 @@ package com.leoncio.bancos.services;
 
 import com.leoncio.bancos.dto.UserDTO;
 import com.leoncio.bancos.repositories.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;

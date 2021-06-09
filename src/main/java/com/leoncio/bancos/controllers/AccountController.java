@@ -2,6 +2,7 @@ package com.leoncio.bancos.controllers;
 
 import com.leoncio.bancos.dto.AccountDTO;
 import com.leoncio.bancos.dto.Response;
+import com.leoncio.bancos.form.AccountForm;
 import com.leoncio.bancos.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class AccountController {
 
     @GetMapping(produces = "application/json")
     public Response list() {
-        throw new UnsupportedOperationException();
+        return new Response(accountService.findAll());
     }
 
     @GetMapping(path = "/{id}", produces = "application/json")
@@ -28,13 +29,13 @@ public class AccountController {
     }
 
     @PutMapping(path = "/{id}", produces = "application/json")
-    public Response edit(@PathVariable int id, @RequestBody AccountDTO accountDTO) {
+    public Response edit(@PathVariable int id, @RequestBody AccountForm accountForm) {
         throw new UnsupportedOperationException();
     }
 
     @PostMapping(produces = "application/json")
-    public Response create(@RequestBody AccountDTO accountDTO) {
-        throw new UnsupportedOperationException();
+    public Response create(@RequestBody AccountForm accountForm) {
+      return new Response(accountService.save(new AccountDTO(accountForm)));
     }
 
     @DeleteMapping(path = "/{id}", produces = "application/json")

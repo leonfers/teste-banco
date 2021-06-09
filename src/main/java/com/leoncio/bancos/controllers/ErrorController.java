@@ -21,8 +21,8 @@ public class ErrorController {
         throw new UnsupportedOperationException();
     }
 
-    @GetMapping(path = "/{id}", produces = "application/json")
-    public Response show(@PathVariable int id) {
+    @GetMapping(path = "/{code}", produces = "application/json")
+    public Response show(@PathVariable int code) {
         throw new UnsupportedOperationException();
     }
 }

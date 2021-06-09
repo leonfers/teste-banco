@@ -10,17 +10,17 @@ import java.time.LocalDateTime;
 @DiscriminatorValue("deposit")
 public class Deposit extends Transaction {
 
-    private Account target;
+    private Account destiny;
     private BigDecimal amount;
     private LocalDateTime date;
 
     @ManyToOne
-    public Account getTarget() {
-        return target;
+    public Account getDestiny() {
+        return destiny;
     }
 
-    public void setTarget(Account target) {
-        this.target = target;
+    public void setDestiny(Account target) {
+        this.destiny = target;
     }
 
     public BigDecimal getAmount() {

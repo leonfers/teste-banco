@@ -1,6 +1,5 @@
-package com.leoncio.bancos.dto;
+package com.leoncio.bancos.form;
 
-import com.leoncio.bancos.form.WithdrawalForm;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,17 +10,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class WithdrawalDTO  implements TransactionDTO {
+public class WithdrawalForm implements TransactionForm {
 
-    private Integer id;
     private String originAccountCode;
     private BigDecimal amount;
     private LocalDateTime date;
-
-    public WithdrawalDTO(WithdrawalForm withdrawalForm) {
-        this.originAccountCode = withdrawalForm.getOriginAccountCode();
-        this.amount = withdrawalForm.getAmount();
-    }
 
     @Override
     public String toString() { //TODO

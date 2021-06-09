@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface TransactionService {
 
     public TransactionDTO save(TransactionDTO customerDTO);
@@ -14,13 +13,11 @@ public interface TransactionService {
 
     public List<TransactionDTO> findAll();
 
-    public WithdrawalDTO doWithdrawal();
+    WithdrawalDTO doWithdrawal(WithdrawalDTO withdrawalDTO);
 
-    public DepositDTO doDeposit();
+    DepositDTO doDeposit(DepositDTO depositDTO);
 
-    public TransferDTO doTransfer();
-
-    public TransactionDTO doTranscation();
+    TransferDTO doTransfer(TransferDTO transferDTO);
 
     public void destroy();
 

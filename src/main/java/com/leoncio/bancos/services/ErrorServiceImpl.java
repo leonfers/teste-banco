@@ -1,9 +1,11 @@
 package com.leoncio.bancos.services;
 
 import com.leoncio.bancos.dto.ErrorDTO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ErrorServiceImpl implements ErrorService{
 
     @Override

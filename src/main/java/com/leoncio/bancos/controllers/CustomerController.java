@@ -2,12 +2,13 @@ package com.leoncio.bancos.controllers;
 
 import com.leoncio.bancos.dto.CustomerDTO;
 import com.leoncio.bancos.dto.Response;
+import com.leoncio.bancos.form.CustomerForm;
 import com.leoncio.bancos.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("cusstomers")
+@RequestMapping("customers")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -19,7 +20,7 @@ public class CustomerController {
 
     @GetMapping(produces = "application/json")
     public Response list() {
-        throw new UnsupportedOperationException();
+        return new Response(customerService.findAll());
     }
 
     @GetMapping(path = "/{id}", produces = "application/json")
@@ -28,13 +29,13 @@ public class CustomerController {
     }
 
     @PutMapping(path = "/{id}", produces = "application/json")
-    public Response edit(@PathVariable int id, @RequestBody CustomerDTO customerDTO) {
+    public Response edit(@PathVariable int id, @RequestBody CustomerForm customerForm) {
         throw new UnsupportedOperationException();
     }
 
     @PostMapping(produces = "application/json")
-    public Response create(@RequestBody CustomerDTO customerDTO) {
-        throw new UnsupportedOperationException();
+    public Response create(@RequestBody CustomerForm customerForm) {
+        return new Response(customerService.save(new CustomerDTO(customerForm)));
     }
 
     @DeleteMapping(path = "/{id}", produces = "application/json")

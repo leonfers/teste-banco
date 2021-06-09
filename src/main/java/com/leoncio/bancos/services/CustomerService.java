@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface CustomerService {
 
     public CustomerDTO save(CustomerDTO customerDTO);

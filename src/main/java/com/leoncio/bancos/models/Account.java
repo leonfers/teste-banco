@@ -12,7 +12,8 @@ public class Account {
     private Customer customer;
     private Bank bank;
     private LocalDateTime openingDate;
-    private BigDecimal balance;
+    private BigDecimal balance = BigDecimal.ZERO;
+    private Integer version;
 
     public void setId(Integer id) {
         this.id = id;
@@ -68,10 +69,21 @@ public class Account {
     }
 
     public BigDecimal getBalance() {
+        if(balance == null){
+            balance = BigDecimal.ZERO;
+        }
         return balance;
     }
 
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 }

@@ -1,5 +1,6 @@
 package com.leoncio.bancos.dto;
 
+import com.leoncio.bancos.form.BankForm;
 import com.leoncio.bancos.models.Bank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,11 @@ public class BankDTO implements BaseDTO {
     private String code;
     private String name;
     private List<AccountDTO> accounts = new ArrayList<>();
+
+    public BankDTO(BankForm bankForm) {
+        this.code = bankForm.getCode();
+        this.name = bankForm.getName();
+    }
 
     public BankDTO(Bank bank){
         this.id = bank.getId();

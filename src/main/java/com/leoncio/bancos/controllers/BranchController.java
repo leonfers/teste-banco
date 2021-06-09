@@ -2,8 +2,10 @@ package com.leoncio.bancos.controllers;
 
 import com.leoncio.bancos.dto.BranchDTO;
 import com.leoncio.bancos.dto.Response;
+import com.leoncio.bancos.form.BranchForm;
 import com.leoncio.bancos.services.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,7 +21,7 @@ public class BranchController {
 
     @GetMapping(produces = "application/json")
     public Response list() {
-        throw new UnsupportedOperationException();
+        return new Response(branchService.findAll());
     }
 
     @GetMapping(path = "/{id}", produces = "application/json")
@@ -28,13 +30,13 @@ public class BranchController {
     }
 
     @PutMapping(path = "/{id}", produces = "application/json")
-    public Response edit(@PathVariable int id, @RequestBody BranchDTO branchDTO) {
+    public Response edit(@PathVariable int id, @RequestBody BranchForm branchForm) {
         throw new UnsupportedOperationException();
     }
 
     @PostMapping(produces = "application/json")
-    public Response create(@RequestBody BranchDTO branchDTO) {
-        throw new UnsupportedOperationException();
+    public Response create(@RequestBody @Validated BranchForm branchForm) {
+        return new Response(branchService.save(new BranchDTO(branchForm)));
     }
 
     @DeleteMapping(path = "/{id}", produces = "application/json")

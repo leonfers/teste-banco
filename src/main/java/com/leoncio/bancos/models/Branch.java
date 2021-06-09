@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 public class Branch {
     private Integer id;
+    private String code;
     private Bank bank;
     private String address;
     private List<Account> accounts = new ArrayList<>();
@@ -19,6 +20,15 @@ public class Branch {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
+    }
+
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     @ManyToOne
@@ -46,4 +56,6 @@ public class Branch {
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
     }
+
+
 }
