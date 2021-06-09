@@ -1,4 +1,8 @@
 package com.leoncio.bancos.dto;
 
-public interface TransactionDTO {
+import java.time.LocalDateTime;
+
+public interface TransactionDTO extends Comparable<TransactionDTO>{
+
+    LocalDateTime getDate();
 }

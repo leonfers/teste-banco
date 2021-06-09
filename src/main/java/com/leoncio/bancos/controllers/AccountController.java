@@ -5,9 +5,11 @@ import com.leoncio.bancos.dto.Response;
 import com.leoncio.bancos.form.AccountForm;
 import com.leoncio.bancos.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 
 @RestController
 @RequestMapping("accounts")
@@ -28,6 +30,13 @@ public class AccountController {
     @GetMapping(path = "/{id}", produces = "application/json")
     public Response show(@PathVariable int id) {
         throw new UnsupportedOperationException();
+    }
+
+    @GetMapping(path = "/bank-statement/{id}", produces = "application/json")
+    public Response bankStatement(@PathVariable int id,
+                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+       return new Response(accountService.getBankStatementByAccountId(id, startDate, endDate));
     }
 
     @PutMapping(path = "/{id}", produces = "application/json")
