@@ -1,5 +1,6 @@
 package com.leoncio.bancos.controllers;
 
+import com.leoncio.bancos.config.Const;
 import com.leoncio.bancos.dto.*;
 import com.leoncio.bancos.form.DepositForm;
 import com.leoncio.bancos.form.TransferForm;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.CannotAcquireLockException;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("transactions")
+@Secured({Const.ROLE_CLIENT, Const.ROLE_ADMIN})
 public class TransactionController {
 
     private final TransactionService transactionService;

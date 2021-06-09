@@ -1,11 +1,13 @@
 package com.leoncio.bancos.controllers;
 
+import com.leoncio.bancos.config.Const;
 import com.leoncio.bancos.dto.AccountDTO;
 import com.leoncio.bancos.dto.Response;
 import com.leoncio.bancos.form.AccountForm;
 import com.leoncio.bancos.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,6 +15,7 @@ import java.time.LocalDate;
 
 @RestController
 @RequestMapping("accounts")
+@Secured({Const.ROLE_CLIENT, Const.ROLE_ADMIN})
 public class AccountController {
 
     private final AccountService accountService;

@@ -71,7 +71,6 @@ public class Account {
     }
 
     @Version
-    @Column(columnDefinition = "default 0")
     public Integer getVersion() {
         return version;
     }

@@ -1,47 +1,56 @@
 package com.leoncio.bancos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class User {
-    private Long id;
-    private String email;
-    private String password;
-    private LocalDateTime createdAt;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
-    }
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    private String name;
     @Column(unique = true)
-    public String getEmail() {
-        return email;
+    private String email;
+    @JsonIgnore
+    private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="user_role",
+            joinColumns=@JoinColumn(name="user_id"),
+            inverseJoinColumns=@JoinColumn(name="role_id")
+    )
+    private List<Role> roles;
+
+    public User() {
     }
 
-    public void setEmail(String email) {
+    public User(String name, String email) {
+        super();
+        this.name = name;
         this.email = email;
     }
-
-    public String getPassword() {
-        return password;
+    public User(User user) {
+        super();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.roles = user.getRoles();
+        this.id = user.getId();
     }
-
-    public void setPassword(String password) {
+    public User(String name, String email, String password, List<Role> roles) {
+        super();
+        this.name = name;
+        this.email = email;
+        this.roles = roles;
         this.password = password;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
 }
