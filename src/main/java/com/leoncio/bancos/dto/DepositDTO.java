@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DepositDTO  implements TransactionDTO, Comparable<TransactionDTO>{
+public class DepositDTO implements TransactionDTO, Comparable<TransactionDTO> {
 
     private Integer id;
     private Integer destinyAccountId;
@@ -32,7 +32,7 @@ public class DepositDTO  implements TransactionDTO, Comparable<TransactionDTO>{
     }
 
     @Override
-    public LocalDateTime getDate(){
+    public LocalDateTime getDate() {
         return this.date;
     }
 

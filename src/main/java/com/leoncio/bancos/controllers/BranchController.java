@@ -7,7 +7,6 @@ import com.leoncio.bancos.form.BranchForm;
 import com.leoncio.bancos.services.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

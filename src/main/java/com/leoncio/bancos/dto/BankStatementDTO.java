@@ -1,6 +1,5 @@
 package com.leoncio.bancos.dto;
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -27,7 +26,7 @@ public class BankStatementDTO {
     private BigDecimal currentBalance;
     private LocalDateTime date;
 
-    public List<TransactionDTO> getTimeline(){
+    public List<TransactionDTO> getTimeline() {
         List<TransactionDTO> transactions = new ArrayList<>();
         transactions.addAll(withdrawals);
         transactions.addAll(deposits);
@@ -36,11 +35,11 @@ public class BankStatementDTO {
         return transactions;
     }
 
-    public BigDecimal getTotal(){
-       return getCredit().subtract(getDebit());
+    public BigDecimal getTotal() {
+        return getCredit().subtract(getDebit());
     }
 
-    public BigDecimal getCredit(){
+    public BigDecimal getCredit() {
         BigDecimal totalDeposits = deposits.stream()
                 .map(DepositDTO::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -51,7 +50,7 @@ public class BankStatementDTO {
         return totalDeposits.add(totalIncomingTransfers);
     }
 
-    public BigDecimal getDebit(){
+    public BigDecimal getDebit() {
         BigDecimal totalWithdrawals = withdrawals.stream()
                 .map(WithdrawalDTO::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);

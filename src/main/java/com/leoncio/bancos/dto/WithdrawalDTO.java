@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class WithdrawalDTO  implements TransactionDTO {
+public class WithdrawalDTO implements TransactionDTO {
 
     private Integer id;
     private Integer originAccountId;
@@ -32,7 +32,7 @@ public class WithdrawalDTO  implements TransactionDTO {
     }
 
     @Override
-    public LocalDateTime getDate(){
+    public LocalDateTime getDate() {
         return this.date;
     }
 

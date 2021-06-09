@@ -6,9 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -23,7 +20,7 @@ public class BankDTO {
         this.name = bankForm.getName();
     }
 
-    public BankDTO(Bank bank){
+    public BankDTO(Bank bank) {
         this.id = bank.getId();
         this.code = bank.getCode();
         this.name = bank.getName();

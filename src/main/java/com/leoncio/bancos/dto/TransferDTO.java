@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TransferDTO implements TransactionDTO, Comparable<TransactionDTO>{
+public class TransferDTO implements TransactionDTO, Comparable<TransactionDTO> {
 
     private Integer id;
     private Integer originAccountId;
@@ -35,7 +35,7 @@ public class TransferDTO implements TransactionDTO, Comparable<TransactionDTO>{
     }
 
     @Override
-    public LocalDateTime getDate(){
+    public LocalDateTime getDate() {
         return this.date;
     }
 

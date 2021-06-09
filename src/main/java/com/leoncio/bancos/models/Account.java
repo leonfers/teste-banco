@@ -23,14 +23,14 @@ public class Account {
         this.user = user;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @ManyToOne
@@ -51,7 +51,7 @@ public class Account {
     }
 
     public BigDecimal getBalance() {
-        if(balance == null){
+        if (balance == null) {
             balance = BigDecimal.ZERO;
         }
         return balance;

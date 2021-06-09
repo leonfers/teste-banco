@@ -1,12 +1,14 @@
 package com.leoncio.bancos.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.leoncio.bancos.dto.AccountDTO;
+import com.leoncio.bancos.form.AccountForm;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,14 +27,20 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @Transient
+    private AccountForm account;
+
+    @Transient
+    private AccountDTO accountDTO;
+
     @NotBlank(message = "Password is mandatory")
     private String password;
     private LocalDateTime createdAt;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="user_role",
-            joinColumns=@JoinColumn(name="user_id"),
-            inverseJoinColumns=@JoinColumn(name="role_id")
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Role> roles;
 
@@ -44,6 +52,7 @@ public class User {
         this.name = name;
         this.email = email;
     }
+
     public User(User user) {
         super();
         this.name = user.getName();
@@ -52,6 +61,7 @@ public class User {
         this.roles = user.getRoles();
         this.id = user.getId();
     }
+
     public User(String name, String email, String password, List<Role> roles) {
         super();
         this.name = name;

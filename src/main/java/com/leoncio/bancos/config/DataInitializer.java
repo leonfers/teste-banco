@@ -33,17 +33,17 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent arg0) {
-        if(Boolean.parseBoolean(System.getProperty("DEBUG"))){
+        if (Boolean.parseBoolean(System.getProperty("DEBUG"))) {
             List<User> users = userRepository.findAll();
             if (users.isEmpty()) {
                 createUser("Admin", "admin@admin.com", passwordEncoder.encode("123456"), Const.ROLE_ADMIN);
                 createUser("Cliente Teste 1", "cliente1@email.com", passwordEncoder.encode("123456"), Const.ROLE_CLIENT);
             }
             List<Bank> banks = bankRepository.findAll();
-            if(banks.isEmpty()){
+            if (banks.isEmpty()) {
                 setupSampleData();
             }
-        }else {
+        } else {
             roleRepository.save(new Role(Const.ROLE_ADMIN));
             roleRepository.save(new Role(Const.ROLE_CLIENT));
         }
@@ -57,18 +57,18 @@ public class DataInitializer implements ApplicationListener<ContextRefreshedEven
         userRepository.save(user);
     }
 
-    public void setupSampleData(){
+    public void setupSampleData() {
         List<Bank> banks = new ArrayList<>();
-        banks.add(new Bank("001","BANCO DO BRASIL S.A"));
-        banks.add(new Bank("237","BRADESCO S.A"));
-        banks.add(new Bank("260","NU PAGAMENTOS S.A "));
-        banks.add(new Bank("380","PicPay Servicos S.A."));
-        banks.add(new Bank("077","BANCO INTER S.A"));
-        banks.add(new Bank("341","ITAÚ UNIBANCO S.A"));
-        banks.add(new Bank("104","CAIXA ECONÔMICA FEDERAL"));
+        banks.add(new Bank("001", "BANCO DO BRASIL S.A"));
+        banks.add(new Bank("237", "BRADESCO S.A"));
+        banks.add(new Bank("260", "NU PAGAMENTOS S.A "));
+        banks.add(new Bank("380", "PicPay Servicos S.A."));
+        banks.add(new Bank("077", "BANCO INTER S.A"));
+        banks.add(new Bank("341", "ITAÚ UNIBANCO S.A"));
+        banks.add(new Bank("104", "CAIXA ECONÔMICA FEDERAL"));
         banks.forEach(bankRepository::save);
         List<Branch> branches = new ArrayList<>();
-        banks.forEach( bank -> {
+        banks.forEach(bank -> {
             Branch branch = new Branch("0001", bank);
             branches.add(branch);
             branchRepository.save(branch);

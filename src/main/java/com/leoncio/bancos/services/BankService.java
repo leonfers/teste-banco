@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface BankService {
 
-    public BankDTO save(BankDTO bankDTO);
+    BankDTO save(BankDTO bankDTO);
 
-    public BankDTO findById(Integer id);
+    BankDTO findById(Integer id);
 
-    public List<BankDTO> findAll();
+    List<BankDTO> findAll();
 
-    public String destroy(Integer id);
+    String destroy(Integer id);
 
 }

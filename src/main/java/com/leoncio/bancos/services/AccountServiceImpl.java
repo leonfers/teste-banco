@@ -6,6 +6,7 @@ import com.leoncio.bancos.models.*;
 import com.leoncio.bancos.repositories.AccountRepository;
 import com.leoncio.bancos.repositories.BranchRepository;
 import com.leoncio.bancos.repositories.TransactionRepository;
+import com.leoncio.bancos.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,12 +24,14 @@ public class AccountServiceImpl implements AccountService {
     private final BranchRepository branchRepository;
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public AccountServiceImpl(BranchRepository branchRepository, AccountRepository accountRepository, TransactionRepository transactionRepository) {
+    public AccountServiceImpl(BranchRepository branchRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, UserRepository userRepository) {
         this.branchRepository = branchRepository;
         this.accountRepository = accountRepository;
         this.transactionRepository = transactionRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -37,14 +40,18 @@ public class AccountServiceImpl implements AccountService {
             Account account;
             if (accountDTO.getId() == null) {
                 account = new Account();
-                account.setUser((User) SecurityContextHolder.getContext()
-                        .getAuthentication()
-                        .getPrincipal());
+                if(accountDTO.getUserId() == null){
+                    account.setUser((User) SecurityContextHolder.getContext()
+                            .getAuthentication()
+                            .getPrincipal());
+                }else {
+                    account.setUser(this.userRepository.getById(accountDTO.getUserId()));
+                }
                 account.setOpeningDate(LocalDateTime.now());
             } else {
                 account = this.accountRepository.getById(accountDTO.getId());
             }
-            Branch branch = branchRepository.getByCode(accountDTO.getBranchCode());
+            Branch branch = branchRepository.getById(accountDTO.getBranchId());
             account.setBranch(branch);
             this.accountRepository.save(account);
             accountDTO.setId(account.getId());

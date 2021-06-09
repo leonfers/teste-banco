@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface AccountService {
 
-    public AccountDTO save(AccountDTO accountDTO);
+    AccountDTO save(AccountDTO accountDTO);
 
-    public AccountDTO findById(Integer id);
+    AccountDTO findById(Integer id);
 
-    public List<AccountDTO> findAll();
+    List<AccountDTO> findAll();
 
-    public String destroy(int id);
+    String destroy(int id);
 
     BankStatementDTO getBankStatementByAccountId(int id, LocalDate startDate, LocalDate endDate);
 }

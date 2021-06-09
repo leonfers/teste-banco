@@ -14,7 +14,7 @@ import java.util.Collection;
 @Service
 public class UserDetailServiceImpl implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserDetailServiceImpl(UserRepository userRepository) {
@@ -70,7 +70,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
         @Override
         public String getPassword() {
-            return  super.getPassword();
+            return super.getPassword();
         }
 
     }
