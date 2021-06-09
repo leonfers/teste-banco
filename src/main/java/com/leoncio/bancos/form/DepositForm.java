@@ -6,16 +6,15 @@ import lombok.Setter;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
 @Setter
 public class DepositForm {
 
-    @NotBlank(message = "Destiny account id is mandatory")
+    @NotNull(message = "Destiny account id is mandatory")
     private Integer destinyAccountId;
 
     @DecimalMin(value = "0.00", inclusive = false, message = "Amount need to be higher than zero")
