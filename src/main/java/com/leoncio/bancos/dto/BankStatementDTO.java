@@ -16,6 +16,9 @@ import java.util.List;
 public class BankStatementDTO {
 
     private Integer accountId;
+    private String branchCode;
+    private String bankCode;
+    private String bankName;
     private List<WithdrawalDTO> withdrawals;
     private List<DepositDTO> deposits;
     private List<TransferDTO> transfers;
@@ -65,5 +68,29 @@ public class BankStatementDTO {
 
     public LocalDateTime getDate() {
         return date;
+    }
+
+    public String getBranchCode() {
+        return branchCode;
+    }
+
+    public void setBranchCode(String branchCode) {
+        this.branchCode = branchCode;
+    }
+
+    public String getBankCode() {
+        return bankCode;
+    }
+
+    public void setBankCode(String bankCode) {
+        this.bankCode = bankCode;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 }

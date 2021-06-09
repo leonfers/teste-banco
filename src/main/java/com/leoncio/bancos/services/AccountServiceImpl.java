@@ -71,6 +71,9 @@ public class AccountServiceImpl implements AccountService {
         bankStatementDTO.setAccountId(account.getId());
         bankStatementDTO.setCurrentBalance(account.getBalance());
         bankStatementDTO.setDate(LocalDateTime.now());
+        bankStatementDTO.setBankCode(account.getBranch().getBank().getCode());
+        bankStatementDTO.setBankName(account.getBranch().getBank().getName());
+        bankStatementDTO.setBranchCode(account.getBranch().getCode());
 
         List<Withdrawal> withdrawals = transactionRepository.findAllWithdrawalsByAccountIdAndDateInterval(id, startDate.atStartOfDay(), endDate.atTime(23,59,59));
         List<Deposit> deposits = transactionRepository.findAllDepositsByAccountIdAndDateInterval(id, startDate.atStartOfDay(), endDate.atTime(23,59,59));
