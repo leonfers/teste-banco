@@ -12,6 +12,11 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class BankForm {
 
+    public BankForm(@NotBlank(message = "Code is mandatory") String code, @NotBlank(message = "Name is mandatory") String name) {
+        this.code = code;
+        this.name = name;
+    }
+
     @NotBlank(message = "Code is mandatory")
     private String code;
 
