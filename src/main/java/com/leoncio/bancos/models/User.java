@@ -1,11 +1,14 @@
 package com.leoncio.bancos.models;
 
+import com.leoncio.bancos.dto.AccountDTO;
+import com.leoncio.bancos.form.AccountForm;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,6 +26,12 @@ public class User {
     @Email(message = "Email with wrong format")
     @Column(unique = true)
     private String email;
+
+    @Transient
+    private AccountForm account;
+
+    @Transient
+    private AccountDTO accountDTO;
 
     @NotBlank(message = "Password is mandatory")
     private String password;

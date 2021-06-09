@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 public class AccountDTO {
 
+    private Integer branchId;
     private Integer id;
     private String branchCode;
     private Integer userId;
@@ -23,14 +24,15 @@ public class AccountDTO {
     private String bankName;
 
     public AccountDTO(AccountForm accountForm) {
-        this.branchCode = accountForm.getBranch_code();
+        this.branchId = accountForm.getBranchId();
     }
 
     public AccountDTO(Account account) {
         this.id = account.getId();
-        this.userId = account.getUser().getId();
+        if(account.getUser() != null){
+            this.userId = account.getUser().getId();
+        }
         this.balance = account.getBalance();
-        this.userId = account.getUser().getId();
         this.branchCode = account.getBranch().getCode();
         this.openingDate = account.getOpeningDate();
         this.bankCode = account.getBranch().getBank().getCode();

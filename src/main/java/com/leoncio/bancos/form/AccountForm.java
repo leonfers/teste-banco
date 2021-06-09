@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class AccountForm {
 
-    @NotBlank(message = "Branch code is mandatory")
-    private String branch_code;
+    @NotBlank(message = "Branch id is mandatory")
+    private Integer branchId;
 
 }
