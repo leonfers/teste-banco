@@ -31,12 +31,14 @@ public class BranchController {
 
     @GetMapping(path = "/{id}", produces = "application/json")
     public Response show(@PathVariable int id) {
-        throw new UnsupportedOperationException();
+        return new Response(branchService.findById(id));
     }
 
     @PutMapping(path = "/{id}", produces = "application/json")
     public Response edit(@PathVariable int id, @RequestBody @Valid BranchForm branchForm) {
-        throw new UnsupportedOperationException();
+        BranchDTO branchDTO = new BranchDTO(branchForm);
+        branchDTO.setId(id);
+        return new Response(branchService.save(branchDTO));
     }
 
     @PostMapping(produces = "application/json")
@@ -46,6 +48,6 @@ public class BranchController {
 
     @DeleteMapping(path = "/{id}", produces = "application/json")
     public Response destroy(@PathVariable int id) {
-        throw new UnsupportedOperationException();
+        return new Response(branchService.destroy(id));
     }
 }

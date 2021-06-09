@@ -34,17 +34,22 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDTO save(AccountDTO accountDTO) {
         try {
-            Account account = new Account();
-            account.setUser((User) SecurityContextHolder.getContext()
-                    .getAuthentication()
-                    .getPrincipal());
+            Account account;
+            if (accountDTO.getId() == null) {
+                account = new Account();
+                account.setUser((User) SecurityContextHolder.getContext()
+                        .getAuthentication()
+                        .getPrincipal());
+                account.setOpeningDate(LocalDateTime.now());
+            } else {
+                account = this.accountRepository.getById(accountDTO.getId());
+            }
             Branch branch = branchRepository.getByCode(accountDTO.getBranchCode());
             account.setBranch(branch);
-            account.setOpeningDate(LocalDateTime.now());
             this.accountRepository.save(account);
             accountDTO.setId(account.getId());
             return accountDTO;
-        } catch (ConstraintViolationException| DataIntegrityViolationException ex) {
+        } catch (ConstraintViolationException | DataIntegrityViolationException ex) {
             throw new DuplicateFoundException("Is not possible to create two accounts for the same user at the same branch");
         }
 
@@ -52,7 +57,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDTO findById(Integer id) {
-        return null;
+        return new AccountDTO(this.accountRepository.getById(id));
     }
 
     @Override
@@ -75,9 +80,9 @@ public class AccountServiceImpl implements AccountService {
         bankStatementDTO.setBankName(account.getBranch().getBank().getName());
         bankStatementDTO.setBranchCode(account.getBranch().getCode());
 
-        List<Withdrawal> withdrawals = transactionRepository.findAllWithdrawalsByAccountIdAndDateInterval(id, startDate.atStartOfDay(), endDate.atTime(23,59,59));
-        List<Deposit> deposits = transactionRepository.findAllDepositsByAccountIdAndDateInterval(id, startDate.atStartOfDay(), endDate.atTime(23,59,59));
-        List<Transfer> transfers = transactionRepository.findAllTransfersByAccountIdAndDateInterval(id, startDate.atStartOfDay(), endDate.atTime(23,59,59));
+        List<Withdrawal> withdrawals = transactionRepository.findAllWithdrawalsByAccountIdAndDateInterval(id, startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
+        List<Deposit> deposits = transactionRepository.findAllDepositsByAccountIdAndDateInterval(id, startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
+        List<Transfer> transfers = transactionRepository.findAllTransfersByAccountIdAndDateInterval(id, startDate.atStartOfDay(), endDate.atTime(23, 59, 59));
 
         bankStatementDTO.setWithdrawals(withdrawals.stream().map(WithdrawalDTO::new).collect(Collectors.toList()));
         bankStatementDTO.setDeposits(deposits.stream().map(DepositDTO::new).collect(Collectors.toList()));
@@ -87,7 +92,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void destroy() {
-
+    public String destroy(int id) {
+        accountRepository.deleteById(id);
+        return "Account deleted";
     }
 }

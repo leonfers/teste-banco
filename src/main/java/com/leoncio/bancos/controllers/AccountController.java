@@ -32,28 +32,30 @@ public class AccountController {
 
     @GetMapping(path = "/{id}", produces = "application/json")
     public Response show(@PathVariable int id) {
-        throw new UnsupportedOperationException();
+        return new Response(accountService.findById(id));
     }
 
     @GetMapping(path = "/bank-statement/{id}", produces = "application/json")
     public Response bankStatement(@PathVariable int id,
                                   @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                   @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-       return new Response(accountService.getBankStatementByAccountId(id, startDate, endDate));
+        return new Response(accountService.getBankStatementByAccountId(id, startDate, endDate));
     }
 
     @PutMapping(path = "/{id}", produces = "application/json")
     public Response edit(@PathVariable int id, @RequestBody @Valid AccountForm accountForm) {
-        throw new UnsupportedOperationException();
+        AccountDTO accountDTO = new AccountDTO(accountForm);
+        accountDTO.setId(id);
+        return new Response(accountService.save(accountDTO));
     }
 
     @PostMapping(produces = "application/json")
     public Response create(@RequestBody @Valid AccountForm accountForm) {
-      return new Response(accountService.save(new AccountDTO(accountForm)));
+        return new Response(accountService.save(new AccountDTO(accountForm)));
     }
 
     @DeleteMapping(path = "/{id}", produces = "application/json")
     public Response destroy(@PathVariable int id) {
-        throw new UnsupportedOperationException();
+        return new Response(accountService.destroy(id));
     }
 }

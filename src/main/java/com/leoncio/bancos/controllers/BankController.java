@@ -47,7 +47,6 @@ public class BankController {
 
     @DeleteMapping(path = "/{id}", produces = "application/json")
     public Response destroy(@PathVariable int id) {
-        bankService.destroy(id);
-        return new Response("Banco deletado!");
+        return new Response(bankService.destroy(id));
     }
 }

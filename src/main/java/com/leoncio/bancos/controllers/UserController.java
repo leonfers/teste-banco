@@ -59,7 +59,7 @@ public class UserController {
             @RequestParam("size") int size
     ){
         Pageable pageable = PageRequest.of(page, size, Sort.by("name"));
-        return new ResponseEntity<Page<User>>(userRepository.findAll(pageable), HttpStatus.OK);
+        return new ResponseEntity<>(userRepository.findAll(pageable), HttpStatus.OK);
     }
 
 
