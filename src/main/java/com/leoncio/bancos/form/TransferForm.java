@@ -1,5 +1,6 @@
 package com.leoncio.bancos.form;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
 public class TransferForm {
 
     @NotNull(message = "Origin account id is mandatory")

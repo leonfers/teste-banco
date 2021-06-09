@@ -38,7 +38,7 @@ public class BranchServiceImpl implements BranchService {
             Bank bank = bankRepository.findByCode(branchDTO.getCode());
             branch.setBank(bank);
             branch.setCode(branchDTO.getCode());
-            branchRepository.save(branch);
+            branch = branchRepository.save(branch);
             branchDTO.setId(branch.getId());
             return branchDTO;
         } catch (ConstraintViolationException | DataIntegrityViolationException ex) {
@@ -48,7 +48,7 @@ public class BranchServiceImpl implements BranchService {
 
     @Override
     public BranchDTO findById(Integer id) {
-        return null;
+        return new BranchDTO(branchRepository.getById(id));
     }
 
     @Override
