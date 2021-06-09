@@ -1,9 +1,8 @@
 package com.leoncio.bancos.services;
 
-import com.leoncio.bancos.dto.*;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
+import com.leoncio.bancos.dto.DepositDTO;
+import com.leoncio.bancos.dto.TransferDTO;
+import com.leoncio.bancos.dto.WithdrawalDTO;
 
 public interface TransactionService {
 

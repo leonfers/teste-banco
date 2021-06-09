@@ -39,24 +39,40 @@
 mvn spring-boot:run -Dspring-boot.run.jvmArguments="-DCLIENT_ID=client -DCLIENT_SECRET=123 -DDEBUG=true -DDB_HOST=172.17.0.2 -DDB_PORT=3306 -DDB_NAME=banks -DDB_USER=root -DDB_PASSWORD=root"
 ```
 
-#### 3.5 Documentação da API pode ser encontrada no caminho /swagger.html da API
+#### 3.5 Documentação da API pode ser encontrada no caminho [/swagger.html](http://localhost:8000/swagger.html) da API
 
-#### 3.5 A descrição detalhada a API(Implementação, Teste, Configuração) pode encontrada na wiki do projeto.
+#### 3.5 A descrição detalhada a API(Implementação, Teste, Configuração) pode encontrada na [wiki do projeto](https://github.com/leonfers/teste-banco/wiki).
 
-#### 3.6 Insominia Collection com todas as requisições pode ser encontrada [aqui]()
+#### 3.6 Insominia Collection com todas as requisições pode ser encontrada [aqui](https://github.com/leonfers/teste-banco/blob/main/src/Insomnia%20Collection%20API)
+
+#### 3.7 Rodar testes da aplicação através do maven
+```bash
+mvn test -DargLine="-DCLIENT_ID=client -DCLIENT_SECRET=123 -DDEBUG=true -DDB_HOST=172.17.0.2 -DDB_PORT=3306 -DDB_NAME=banks -DDB_USER=root -DDB_PASSWORD=root"
+```
 
 ### 4. Resumo da API
+A solução proposta foi construída com a simplicidade em mente, atendendo os requisitos apontados pelo desafio.
 
 #### 4.1 Descrição
+A API Bancos permite a gerência de Instituições Financeiras, Agências, Usuários (Clientes).
+A API Bancos também possui a funcionalidade para realizar Saques, Depósitos e Transferências e gerar um extrato bancário por conta.
+Foi considerado situações de concorrência para impedir que o saldo das contas entrasse em situação inconsistente.
 
 #### 4.1 Solução
+A API Bancos conta com os seguintes Módulos
 
-#### 4.1 Autenticação
-
-#### 4.1 Autenticação
-
-#### 4.1 Autenticação
-
+#### 4.1.1 User (Usuários)
+Permite a gerência de usuários (cadastro, listagem e edição)
+#### 4.1.2 Security (Autentição)
+Permite a autenticação na API
+#### 4.1.3 Banks (Bancos)
+Permite a gerência de bancos (cadastro, listagem, edição, remoção)
+#### 4.1.4 Branches (Agências)
+Permite a gerência de agências (cadastro, listagem, edição, remoção)
+#### 4.1.5 Accounts (Contas)
+Permite a gerência de contas (cadastro, listagem, edição, remoção, gerar extrato)
+#### 4.1.6 Transactions (Transações)
+Permite a realizar transações (saque, depósito, transferência)
 
 <!-- CONTACT -->
 ### Contact

@@ -1,28 +1,22 @@
 package com.leoncio.bancos.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.leoncio.bancos.dto.BankDTO;
-import com.leoncio.bancos.dto.Response;
 import com.leoncio.bancos.form.BankForm;
-import com.leoncio.bancos.models.Bank;
 import com.leoncio.bancos.repositories.BankRepository;
 import com.leoncio.bancos.services.BankService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -34,14 +28,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(BankController.class)
 class BankControllerIntegrationTest {
 
+    private final ObjectMapper mapper = new ObjectMapper();
     @MockBean
     private BankService bankService;
     @MockBean
     private BankRepository bankRepository;
-
     @Autowired
     private MockMvc mockMvc;
-    private final ObjectMapper mapper = new ObjectMapper();
 
     @Test
     void it_should_return_bank_created() throws Exception {
@@ -97,7 +90,6 @@ class BankControllerIntegrationTest {
     }
 
 
-
     @Test
     void edit() throws Exception {
         BankDTO bank = new BankDTO();
@@ -110,7 +102,6 @@ class BankControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.name").value(bank.getName()));
     }
-
 
 
     @Test

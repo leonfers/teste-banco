@@ -4,7 +4,6 @@ import com.leoncio.bancos.dto.ErrorDTO;
 import com.leoncio.bancos.dto.Response;
 import com.leoncio.bancos.errorhandling.exceptions.DuplicateFoundException;
 import com.leoncio.bancos.errorhandling.exceptions.IllegalTransactionException;
-import com.leoncio.bancos.errorhandling.exceptions.ItemNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +39,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             errorDTO.setCode(status.value());
             errorDTO.setTitle(error.getField());
             errorDTO.setDetail(error.getDefaultMessage());
-            errorDTO.setPath(((ServletWebRequest)request).getRequest().getRequestURL().toString());
+            errorDTO.setPath(((ServletWebRequest) request).getRequest().getRequestURL().toString());
             errorDTO.setTimestamp(LocalDateTime.now());
             errors.add(errorDTO);
         }
@@ -49,7 +48,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             errorDTO.setCode(status.value());
             errorDTO.setTitle(error.getDefaultMessage());
             errorDTO.setDetail(error.getDefaultMessage());
-            errorDTO.setPath(((ServletWebRequest)request).getRequest().getRequestURL().toString());
+            errorDTO.setPath(((ServletWebRequest) request).getRequest().getRequestURL().toString());
             errorDTO.setTimestamp(LocalDateTime.now());
             errors.add(errorDTO);
         }
@@ -73,7 +72,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             errorDTO.setCode(status.value());
             errorDTO.setTitle(error.getDefaultMessage());
             errorDTO.setDetail(error.getDefaultMessage());
-            errorDTO.setPath(((ServletWebRequest)request).getRequest().getRequestURL().toString());
+            errorDTO.setPath(((ServletWebRequest) request).getRequest().getRequestURL().toString());
             errorDTO.setTimestamp(LocalDateTime.now());
             errors.add(errorDTO);
         }
@@ -96,7 +95,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
             errorDTO.setCode(status.value());
             errorDTO.setTitle(error.getDefaultMessage());
             errorDTO.setDetail(error.getDefaultMessage());
-            errorDTO.setPath(((ServletWebRequest)request).getRequest().getRequestURL().toString());
+            errorDTO.setPath(((ServletWebRequest) request).getRequest().getRequestURL().toString());
             errorDTO.setTimestamp(LocalDateTime.now());
             errors.add(errorDTO);
         }

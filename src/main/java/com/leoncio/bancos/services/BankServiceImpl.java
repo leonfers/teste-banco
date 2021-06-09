@@ -28,16 +28,16 @@ public class BankServiceImpl implements BankService {
     public BankDTO save(BankDTO bankDTO) {
         try {
             Bank bank;
-            if(bankDTO.getId()==null){
+            if (bankDTO.getId() == null) {
                 bank = new Bank();
-            }else{
+            } else {
                 bank = bankRepository.getById(bankDTO.getId());
             }
             bank.setCode(bankDTO.getCode());
             bank.setName(bankDTO.getName());
             bankRepository.save(bank);
             return new BankDTO(bank);
-        } catch (ConstraintViolationException| DataIntegrityViolationException ex) {
+        } catch (ConstraintViolationException | DataIntegrityViolationException ex) {
             throw new DuplicateFoundException("Is not possible to create two banks with the same name or the same code");
         }
     }

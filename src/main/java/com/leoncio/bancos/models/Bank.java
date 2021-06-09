@@ -1,7 +1,6 @@
 package com.leoncio.bancos.models;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -23,14 +22,14 @@ public class Bank {
         this.code = code;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Column(unique = true)

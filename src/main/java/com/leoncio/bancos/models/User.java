@@ -1,6 +1,5 @@
 package com.leoncio.bancos.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,9 +29,9 @@ public class User {
     private LocalDateTime createdAt;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="user_role",
-            joinColumns=@JoinColumn(name="user_id"),
-            inverseJoinColumns=@JoinColumn(name="role_id")
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Role> roles;
 
@@ -44,6 +43,7 @@ public class User {
         this.name = name;
         this.email = email;
     }
+
     public User(User user) {
         super();
         this.name = user.getName();
@@ -52,6 +52,7 @@ public class User {
         this.roles = user.getRoles();
         this.id = user.getId();
     }
+
     public User(String name, String email, String password, List<Role> roles) {
         super();
         this.name = name;

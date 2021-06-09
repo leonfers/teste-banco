@@ -1,6 +1,5 @@
 package com.leoncio.bancos.form;
 
-import com.leoncio.bancos.models.Bank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ErrorServiceImpl implements ErrorService{
+public class ErrorServiceImpl implements ErrorService {
 
     @Override
     public ErrorDTO findByCode(String code) {
