@@ -16,19 +16,15 @@ public class BranchDTO {
     private Integer id;
     private String code;
     private String bankCode;
-    private String address;
-    private List<AccountDTO> accounts;
 
     public BranchDTO(BranchForm branchForm) {
         this.code = branchForm.getCode();
         this.bankCode = branchForm.getBankCode();
-        this.address = branchForm.getAddress();
     }
 
     public BranchDTO(Branch branch) {
         this.id = branch.getId();
         this.code = branch.getCode();
         this.bankCode = branch.getBank().getCode();
-        this.address = branch.getAddress();
     }
 }

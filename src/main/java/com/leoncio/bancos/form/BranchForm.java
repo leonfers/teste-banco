@@ -17,7 +17,4 @@ public class BranchForm {
 
     @NotBlank(message = "Bank code is mandatory")
     private String bankCode;
-
-    @NotBlank(message = "Address is mandatory")
-    private String address;
 }

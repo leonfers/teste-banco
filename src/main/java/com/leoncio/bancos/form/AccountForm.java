@@ -5,18 +5,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class AccountForm {
 
-    @NotBlank(message = "Code is mandatory")
-    private String code;
-
     @NotBlank(message = "Branch code is mandatory")
     private String branch_code;
 
-    @NotBlank(message = "Customer code is mandatory")
-    private String customer_code;
 }

@@ -17,7 +17,6 @@ public class BankDTO {
     private Integer id;
     private String code;
     private String name;
-    private List<AccountDTO> accounts = new ArrayList<>();
 
     public BankDTO(BankForm bankForm) {
         this.code = bankForm.getCode();

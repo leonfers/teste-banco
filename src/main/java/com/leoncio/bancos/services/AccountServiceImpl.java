@@ -5,10 +5,10 @@ import com.leoncio.bancos.errorhandling.exceptions.DuplicateFoundException;
 import com.leoncio.bancos.models.*;
 import com.leoncio.bancos.repositories.AccountRepository;
 import com.leoncio.bancos.repositories.BranchRepository;
-import com.leoncio.bancos.repositories.CustomerRepository;
 import com.leoncio.bancos.repositories.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ConstraintViolationException;
@@ -21,15 +21,13 @@ import java.util.stream.Collectors;
 public class AccountServiceImpl implements AccountService {
 
     private final BranchRepository branchRepository;
-    private final CustomerRepository customerRepository;
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
 
     @Autowired
-    public AccountServiceImpl(BranchRepository branchRepository, AccountRepository accountRepository, CustomerRepository customerRepository, TransactionRepository transactionRepository) {
+    public AccountServiceImpl(BranchRepository branchRepository, AccountRepository accountRepository, TransactionRepository transactionRepository) {
         this.branchRepository = branchRepository;
         this.accountRepository = accountRepository;
-        this.customerRepository = customerRepository;
         this.transactionRepository = transactionRepository;
     }
 
@@ -37,17 +35,17 @@ public class AccountServiceImpl implements AccountService {
     public AccountDTO save(AccountDTO accountDTO) {
         try {
             Account account = new Account();
-            account.setCode(accountDTO.getCode());
+            account.setUser((User) SecurityContextHolder.getContext()
+                    .getAuthentication()
+                    .getPrincipal());
             Branch branch = branchRepository.getByCode(accountDTO.getBranchCode());
             account.setBranch(branch);
-            Customer customer = customerRepository.getByCode(accountDTO.getCustomerCode());
-            account.setCustomer(customer);
             account.setOpeningDate(LocalDateTime.now());
             this.accountRepository.save(account);
             accountDTO.setId(account.getId());
             return accountDTO;
         } catch (ConstraintViolationException| DataIntegrityViolationException ex) {
-            throw new DuplicateFoundException("Is not possible to create two accounts for the same customer at the same branch");
+            throw new DuplicateFoundException("Is not possible to create two accounts for the same user at the same branch");
         }
 
     }
@@ -70,7 +68,7 @@ public class AccountServiceImpl implements AccountService {
         BankStatementDTO bankStatementDTO = new BankStatementDTO();
         bankStatementDTO.setStartDate(startDate);
         bankStatementDTO.setEndDate(endDate);
-        bankStatementDTO.setAccountCode(account.getCode());
+        bankStatementDTO.setAccountId(account.getId());
         bankStatementDTO.setCurrentBalance(account.getBalance());
         bankStatementDTO.setDate(LocalDateTime.now());
 

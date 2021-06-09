@@ -1,19 +1,27 @@
 package com.leoncio.bancos.models;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"customer_id", "branch_id"})})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "branch_id"})})
 public class Account {
     private Integer id;
-    private String code;
     private Branch branch;
-    private Customer customer;
     private LocalDateTime openingDate;
     private BigDecimal balance = BigDecimal.ZERO;
     private Integer version;
+    private User user;
+
+    public Account(Branch branch, LocalDateTime openingDate, User user) {
+        this.branch = branch;
+        this.openingDate = openingDate;
+        this.user = user;
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -25,14 +33,6 @@ public class Account {
         return id;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     @ManyToOne
     public Branch getBranch() {
         return branch;
@@ -40,15 +40,6 @@ public class Account {
 
     public void setBranch(Branch branch) {
         this.branch = branch;
-    }
-
-    @ManyToOne
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public LocalDateTime getOpeningDate() {
@@ -77,5 +68,14 @@ public class Account {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    @OneToOne
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

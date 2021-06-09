@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 @Setter
 public class WithdrawalForm {
 
-    @NotBlank(message = "Origin account code is mandatory")
-    private String originAccountCode;
+    @NotBlank(message = "Origin account id is mandatory")
+    private Integer originAccountId;
 
     @DecimalMin(value = "0.00", inclusive = false, message = "Amount need to be higher than zero")
     @Digits(integer=5, fraction=2, message = "Amount integral part can have at max 5 digits and the decimal part have at max 2 digits  ")

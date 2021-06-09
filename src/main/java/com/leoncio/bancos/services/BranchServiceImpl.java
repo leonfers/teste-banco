@@ -31,7 +31,6 @@ public class BranchServiceImpl implements BranchService {
         try {
             Bank bank = bankRepository.findByCode(branchDTO.getCode());
             Branch branch = new Branch();
-            branch.setAddress(branchDTO.getAddress());
             branch.setBank(bank);
             branch.setCode(branchDTO.getCode());
             branchRepository.save(branch);

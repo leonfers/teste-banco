@@ -18,6 +18,11 @@ public class Bank {
     private String code;
     private List<Branch> branches = new ArrayList<>();
 
+    public Bank(String code, String name) {
+        this.name = name;
+        this.code = code;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }

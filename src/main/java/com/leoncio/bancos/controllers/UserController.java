@@ -3,6 +3,7 @@ package com.leoncio.bancos.controllers;
 import com.leoncio.bancos.config.Const;
 import com.leoncio.bancos.dto.Response;
 import com.leoncio.bancos.dto.UserDTO;
+import com.leoncio.bancos.form.UserForm;
 import com.leoncio.bancos.models.User;
 import com.leoncio.bancos.repositories.RoleRepository;
 import com.leoncio.bancos.repositories.UserRepository;
@@ -16,7 +17,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/user")
@@ -31,9 +36,11 @@ public class UserController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @Secured({Const.ROLE_ADMIN})
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<User> save(@RequestBody User user){
+    @PostMapping
+    public ResponseEntity<User> save(@RequestBody @Valid User user){
+        user.setRoles(roleRepository.findAll());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setCreatedAt(LocalDateTime.now());
         user = this.userRepository.save(user);
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }

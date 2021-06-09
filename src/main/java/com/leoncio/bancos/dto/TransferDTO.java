@@ -15,22 +15,22 @@ import java.time.LocalDateTime;
 public class TransferDTO implements TransactionDTO, Comparable<TransactionDTO>{
 
     private Integer id;
-    private String originAccountCode;
-    private String destinyAccountCode;
+    private Integer originAccountId;
+    private Integer destinyAccountId;
     private BigDecimal amount;
     private LocalDateTime date;
 
     public TransferDTO(TransferForm transferForm) {
-        this.originAccountCode = transferForm.getOriginAccountCode();
-        this.destinyAccountCode = transferForm.getDestinyAccountCode();
+        this.originAccountId = transferForm.getOriginAccountId();
+        this.destinyAccountId = transferForm.getDestinyAccountId();
         this.amount = transferForm.getAmount();
     }
 
     public TransferDTO(Transfer transfer) {
         this.amount = transfer.getAmount();
         this.date = transfer.getDate();
-        this.originAccountCode = transfer.getOrigin().getCode();
-        this.destinyAccountCode = transfer.getDestiny().getCode();
+        this.originAccountId = transfer.getOrigin().getId();
+        this.destinyAccountId = transfer.getDestiny().getId();
         this.id = transfer.getId();
     }
 
