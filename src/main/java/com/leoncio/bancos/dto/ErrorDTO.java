@@ -3,26 +3,19 @@ package com.leoncio.bancos.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
-public class ErrorDTO implements BaseDTO {
+public class ErrorDTO {
 
-    public String type;
     public String title;
-    public String code;
+    public int code;
     public String detail;
-    public String instance;
-
-    @Override
-    public String toString() {
-        return "ErrorDTO{" +
-                "type='" + type + '\'' +
-                ", title='" + title + '\'' +
-                ", code='" + code + '\'' +
-                ", detail='" + detail + '\'' +
-                ", instance='" + instance + '\'' +
-                '}';
-    }
+    public String path;
+    public LocalDateTime timestamp;
 }

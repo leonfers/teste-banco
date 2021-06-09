@@ -38,7 +38,7 @@ public class BankController {
     }
 
     @PostMapping(produces = "application/json")
-    public Response create(@Valid @RequestBody BankForm bankForm) {
+    public Response create(@RequestBody @Valid BankForm bankForm) {
         return new Response(bankService.save(new BankDTO(bankForm)));
     }
 

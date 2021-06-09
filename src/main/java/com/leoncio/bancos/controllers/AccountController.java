@@ -7,6 +7,8 @@ import com.leoncio.bancos.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("accounts")
 public class AccountController {
@@ -29,12 +31,12 @@ public class AccountController {
     }
 
     @PutMapping(path = "/{id}", produces = "application/json")
-    public Response edit(@PathVariable int id, @RequestBody AccountForm accountForm) {
+    public Response edit(@PathVariable int id, @RequestBody @Valid AccountForm accountForm) {
         throw new UnsupportedOperationException();
     }
 
     @PostMapping(produces = "application/json")
-    public Response create(@RequestBody AccountForm accountForm) {
+    public Response create(@RequestBody @Valid AccountForm accountForm) {
       return new Response(accountService.save(new AccountDTO(accountForm)));
     }
 

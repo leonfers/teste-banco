@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("branches")
 public class BranchController {
@@ -30,12 +32,12 @@ public class BranchController {
     }
 
     @PutMapping(path = "/{id}", produces = "application/json")
-    public Response edit(@PathVariable int id, @RequestBody BranchForm branchForm) {
+    public Response edit(@PathVariable int id, @RequestBody @Valid BranchForm branchForm) {
         throw new UnsupportedOperationException();
     }
 
     @PostMapping(produces = "application/json")
-    public Response create(@RequestBody @Validated BranchForm branchForm) {
+    public Response create(@RequestBody @Valid BranchForm branchForm) {
         return new Response(branchService.save(new BranchDTO(branchForm)));
     }
 

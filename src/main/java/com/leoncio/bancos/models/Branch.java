@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"code", "bank_id"})})
 public class Branch {
     private Integer id;
     private String code;

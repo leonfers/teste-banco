@@ -4,25 +4,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @NoArgsConstructor
 @Getter
 @Setter
-public class UserForm implements BaseForm {
+public class UserForm {
 
-    private String username;
+    @NotBlank(message = "Email is mandatory")
+    @Email(message = "Email does not have a valid format")
     private String email;
-    private String password;
-    private LocalDateTime createdAt;
 
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", createdAt=" + createdAt +
-                '}';
-    }
+    @NotBlank(message = "Password is mandatory")
+    private String password;
+
 }

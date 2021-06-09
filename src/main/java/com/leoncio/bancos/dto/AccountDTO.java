@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AccountDTO implements BaseDTO {
+public class AccountDTO {
 
     private Integer id;
     private String code;
@@ -34,15 +34,5 @@ public class AccountDTO implements BaseDTO {
         this.customerCode = account.getCustomer().getCode();
         this.branchCode = account.getBranch().getCode();
         this.openingDate = account.getOpeningDate();
-    }
-
-    @Override
-    public String toString() {
-        return "AccountDTO{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
-                ", branchCode='" + branchCode + '\'' +
-                ", customerCode='" + customerCode + '\'' +
-                '}';
     }
 }

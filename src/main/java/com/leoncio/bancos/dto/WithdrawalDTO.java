@@ -22,13 +22,4 @@ public class WithdrawalDTO  implements TransactionDTO {
         this.originAccountCode = withdrawalForm.getOriginAccountCode();
         this.amount = withdrawalForm.getAmount();
     }
-
-    @Override
-    public String toString() { //TODO
-        return "WithdrawalDTO{" +
-                ", originAccount='" + originAccountCode + '\'' +
-                ", amount='" + amount + '\'' +
-                ", date=" + date +
-                '}';
-    }
 }
