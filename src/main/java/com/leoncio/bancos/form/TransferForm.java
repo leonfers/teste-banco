@@ -1,6 +1,5 @@
-package com.leoncio.bancos.dto;
+package com.leoncio.bancos.form;
 
-import com.leoncio.bancos.form.DepositForm;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,26 +10,20 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DepositDTO  implements TransactionDTO {
+public class TransferForm implements TransactionForm {
 
-    private Integer id;
+    private String originAccountCode;
     private String destinyAccountCode;
     private BigDecimal amount;
     private LocalDateTime date;
 
-    public DepositDTO(DepositForm depositForm) {
-        this.destinyAccountCode = depositForm.getDestinyAccountCode();
-        this.amount = depositForm.getAmount();
-    }
-
     @Override
     public String toString() { //TODO
         return "TransferDTO{" +
+                ", originAccount='" + originAccountCode + '\'' +
                 ", targetAccount='" + destinyAccountCode + '\'' +
                 ", amount='" + amount + '\'' +
                 ", date=" + date +
                 '}';
     }
-
-
 }
