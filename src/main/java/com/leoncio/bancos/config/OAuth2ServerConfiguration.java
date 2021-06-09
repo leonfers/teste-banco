@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,12 +23,14 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
 @Configuration
+@Profile("!dev")
 public class OAuth2ServerConfiguration {
 
     private static final String RESOURCE_ID = "restservice";
 
     @Configuration
     @EnableResourceServer
+    @Profile("!dev")
     protected static class ResourceServerConfiguration extends
             ResourceServerConfigurerAdapter {
 
@@ -51,6 +54,7 @@ public class OAuth2ServerConfiguration {
 
     @Configuration
     @EnableAuthorizationServer
+    @Profile("!dev")
     protected static class AuthorizationServerConfiguration extends
             AuthorizationServerConfigurerAdapter {
 

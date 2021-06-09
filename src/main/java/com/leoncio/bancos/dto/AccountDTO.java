@@ -25,6 +25,7 @@ public class AccountDTO {
 
     public AccountDTO(AccountForm accountForm) {
         this.branchId = accountForm.getBranchId();
+        this.userId = accountForm.getUserId();
     }
 
     public AccountDTO(Account account) {

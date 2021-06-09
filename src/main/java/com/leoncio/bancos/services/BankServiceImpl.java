@@ -17,12 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class BankServiceImpl implements BankService {
 
-    private final BankRepository bankRepository;
-
-    @Autowired
-    public BankServiceImpl(BankRepository bankRepository) {
-        this.bankRepository = bankRepository;
-    }
+    private BankRepository bankRepository;
 
     @Override
     public BankDTO save(BankDTO bankDTO) {
@@ -31,11 +26,11 @@ public class BankServiceImpl implements BankService {
             if (bankDTO.getId() == null) {
                 bank = new Bank();
             } else {
-                bank = bankRepository.getById(bankDTO.getId());
+                bank = getBankRepository().getById(bankDTO.getId());
             }
             bank.setCode(bankDTO.getCode());
             bank.setName(bankDTO.getName());
-            bankRepository.save(bank);
+            getBankRepository().save(bank);
             return new BankDTO(bank);
         } catch (ConstraintViolationException | DataIntegrityViolationException ex) {
             throw new DuplicateFoundException("Is not possible to create two banks with the same name or the same code");
@@ -44,7 +39,7 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public BankDTO findById(Integer id) {
-        Optional<Bank> optionalBank = bankRepository.findById(id);
+        Optional<Bank> optionalBank = getBankRepository().findById(id);
         if (optionalBank.isPresent()) {
             return new BankDTO(optionalBank.get());
         } else {
@@ -55,13 +50,22 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public List<BankDTO> findAll() {
-        return bankRepository.findAll().stream()
+        return getBankRepository().findAll().stream()
                 .map(BankDTO::new).collect(Collectors.toList());
     }
 
     @Override
     public String destroy(Integer id) {
-        bankRepository.deleteById(id);
+        getBankRepository().deleteById(id);
         return "Bank deleted";
+    }
+
+    @Autowired
+    public BankRepository getBankRepository() {
+        return bankRepository;
+    }
+
+    public void setBankRepository(BankRepository bankRepository) {
+        this.bankRepository = bankRepository;
     }
 }

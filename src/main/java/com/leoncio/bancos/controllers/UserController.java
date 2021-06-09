@@ -7,6 +7,7 @@ import com.leoncio.bancos.repositories.RoleRepository;
 import com.leoncio.bancos.repositories.UserRepository;
 import com.leoncio.bancos.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +25,7 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/user")
+@Profile("!dev")
 public class UserController {
 
     private final AccountService accountService;
