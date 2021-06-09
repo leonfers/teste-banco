@@ -19,6 +19,8 @@ public class AccountDTO {
     private Integer userId;
     private BigDecimal balance;
     private LocalDateTime openingDate;
+    private String bankCode;
+    private String bankName;
 
     public AccountDTO(AccountForm accountForm) {
         this.branchCode = accountForm.getBranch_code();
@@ -31,5 +33,7 @@ public class AccountDTO {
         this.userId = account.getUser().getId();
         this.branchCode = account.getBranch().getCode();
         this.openingDate = account.getOpeningDate();
+        this.bankCode = account.getBranch().getBank().getCode();
+        this.bankName = account.getBranch().getBank().getName();
     }
 }

@@ -7,15 +7,15 @@ import lombok.Setter;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
 @Setter
 public class TransferForm {
 
-    @NotBlank(message = "Origin account id is mandatory")
+    @NotNull(message = "Origin account id is mandatory")
     private Integer originAccountId;
 
     @NotBlank(message = "Destiny account id is mandatory")
