@@ -1,16 +1,19 @@
 package com.leoncio.bancos.controllers;
 
+import com.leoncio.bancos.config.Const;
 import com.leoncio.bancos.dto.CustomerDTO;
 import com.leoncio.bancos.dto.Response;
 import com.leoncio.bancos.form.CustomerForm;
 import com.leoncio.bancos.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequestMapping("customers")
+@Secured({Const.ROLE_CLIENT, Const.ROLE_ADMIN})
 public class CustomerController {
 
     private final CustomerService customerService;

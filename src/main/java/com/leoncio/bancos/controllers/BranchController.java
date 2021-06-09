@@ -1,10 +1,12 @@
 package com.leoncio.bancos.controllers;
 
+import com.leoncio.bancos.config.Const;
 import com.leoncio.bancos.dto.BranchDTO;
 import com.leoncio.bancos.dto.Response;
 import com.leoncio.bancos.form.BranchForm;
 import com.leoncio.bancos.services.BranchService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +14,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("branches")
+@Secured({Const.ROLE_CLIENT, Const.ROLE_ADMIN})
 public class BranchController {
 
     private final BranchService branchService;

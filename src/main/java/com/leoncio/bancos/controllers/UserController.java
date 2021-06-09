@@ -1,46 +1,59 @@
 package com.leoncio.bancos.controllers;
 
+import com.leoncio.bancos.config.Const;
 import com.leoncio.bancos.dto.Response;
 import com.leoncio.bancos.dto.UserDTO;
-import com.leoncio.bancos.services.UserService;
+import com.leoncio.bancos.models.User;
+import com.leoncio.bancos.repositories.RoleRepository;
+import com.leoncio.bancos.repositories.UserRepository;
+import com.leoncio.bancos.services.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 @RestController
-@RequestMapping("users")
+@RequestMapping("/user")
 public class UserController {
 
-    private final UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    private RoleRepository roleRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+    @Secured({Const.ROLE_ADMIN})
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public ResponseEntity<User> save(@RequestBody User user){
+        user = this.userRepository.save(user);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
-    @GetMapping(produces = "application/json")
-    public Response list() {
-        throw new UnsupportedOperationException();
+    @Secured({Const.ROLE_ADMIN})
+    @RequestMapping(value = "", method = RequestMethod.PUT)
+    public ResponseEntity<User> edit(@RequestBody User user){
+        user = this.userRepository.save(user);
+        return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/{id}", produces = "application/json")
-    public Response show(@PathVariable int id) {
-        throw new UnsupportedOperationException();
+    @Secured({Const.ROLE_CLIENT, Const.ROLE_ADMIN})
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public ResponseEntity<Page<User>> list(
+            @RequestParam("page") int page,
+            @RequestParam("size") int size
+    ){
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name"));
+        return new ResponseEntity<Page<User>>(userRepository.findAll(pageable), HttpStatus.OK);
     }
 
-    @PutMapping(path = "/{id}", produces = "application/json")
-    public Response edit(@PathVariable int id, @RequestBody @Valid UserDTO userDTO) {
-        throw new UnsupportedOperationException();
-    }
 
-    @PostMapping(produces = "application/json")
-    public Response create(@RequestBody @Valid UserDTO userDTO) {
-        throw new UnsupportedOperationException();
-    }
-
-    @DeleteMapping(path = "/{id}", produces = "application/json")
-    public Response destroy(@PathVariable int id) {
-        throw new UnsupportedOperationException();
-    }
 }
