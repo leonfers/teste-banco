@@ -8,8 +8,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@DiscriminatorValue("withdral")
-public class Withdrawl extends Transaction {
+@DiscriminatorValue("withdrawal")
+public class Withdrawal extends Transaction {
 
     private Account origin;
     private BigDecimal amount;

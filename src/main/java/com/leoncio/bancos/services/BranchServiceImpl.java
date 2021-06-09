@@ -1,18 +1,21 @@
 package com.leoncio.bancos.services;
 
 import com.leoncio.bancos.dto.BranchDTO;
+import com.leoncio.bancos.errorhandling.exceptions.DuplicateFoundException;
 import com.leoncio.bancos.models.Bank;
 import com.leoncio.bancos.models.Branch;
 import com.leoncio.bancos.repositories.BankRepository;
 import com.leoncio.bancos.repositories.BranchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class BranchServiceImpl implements BranchService{
+public class BranchServiceImpl implements BranchService {
 
     private final BranchRepository branchRepository;
     private final BankRepository bankRepository;
@@ -25,14 +28,18 @@ public class BranchServiceImpl implements BranchService{
 
     @Override
     public BranchDTO save(BranchDTO branchDTO) {
-        Bank bank = bankRepository.findByCode(branchDTO.getCode());
-        Branch branch = new Branch();
-        branch.setAddress(branchDTO.getAddress());
-        branch.setBank(bank);
-        branch.setCode(branchDTO.getCode());
-        branchRepository.save(branch);
-        branchDTO.setId(branch.getId());
-        return branchDTO;
+        try {
+            Bank bank = bankRepository.findByCode(branchDTO.getCode());
+            Branch branch = new Branch();
+            branch.setAddress(branchDTO.getAddress());
+            branch.setBank(bank);
+            branch.setCode(branchDTO.getCode());
+            branchRepository.save(branch);
+            branchDTO.setId(branch.getId());
+            return branchDTO;
+        } catch (ConstraintViolationException| DataIntegrityViolationException ex) {
+            throw new DuplicateFoundException("Is not possible to create two branch with the same code at the same bank");
+        }
     }
 
     @Override

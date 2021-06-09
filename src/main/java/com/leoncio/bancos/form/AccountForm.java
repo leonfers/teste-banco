@@ -4,21 +4,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Setter
 @NoArgsConstructor
-public class AccountForm implements BaseForm {
+public class AccountForm {
 
+    @NotBlank(message = "Code is mandatory")
     private String code;
-    private String branch_code;
-    private String customer_code;
 
-    @Override
-    public String toString() {
-        return "AccountForm{" +
-                ", code='" + code + '\'' +
-                ", branch_code='" + branch_code + '\'' +
-                ", customer_code='" + customer_code + '\'' +
-                '}';
-    }
+    @NotBlank(message = "Branch code is mandatory")
+    private String branch_code;
+
+    @NotBlank(message = "Customer code is mandatory")
+    private String customer_code;
 }

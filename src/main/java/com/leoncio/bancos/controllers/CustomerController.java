@@ -7,6 +7,8 @@ import com.leoncio.bancos.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("customers")
 public class CustomerController {
@@ -29,12 +31,12 @@ public class CustomerController {
     }
 
     @PutMapping(path = "/{id}", produces = "application/json")
-    public Response edit(@PathVariable int id, @RequestBody CustomerForm customerForm) {
+    public Response edit(@PathVariable int id, @RequestBody @Valid CustomerForm customerForm) {
         throw new UnsupportedOperationException();
     }
 
     @PostMapping(produces = "application/json")
-    public Response create(@RequestBody CustomerForm customerForm) {
+    public Response create(@RequestBody @Valid CustomerForm customerForm) {
         return new Response(customerService.save(new CustomerDTO(customerForm)));
     }
 

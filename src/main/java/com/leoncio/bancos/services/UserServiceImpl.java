@@ -1,9 +1,12 @@
 package com.leoncio.bancos.services;
 
 import com.leoncio.bancos.dto.UserDTO;
+import com.leoncio.bancos.errorhandling.exceptions.DuplicateFoundException;
 import com.leoncio.bancos.repositories.UserRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 @Service
@@ -17,7 +20,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO save(UserDTO userDTO) {
-        return null;
+        try {
+            return null;
+        } catch (ConstraintViolationException| DataIntegrityViolationException ex) {
+            throw new DuplicateFoundException("Is not possible to create two users with the same email");
+        }
     }
 
     @Override

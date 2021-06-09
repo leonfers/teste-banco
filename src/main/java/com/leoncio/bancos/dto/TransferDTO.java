@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-public class TransferDTO  implements TransactionDTO {
+public class TransferDTO implements TransactionDTO{
 
     private Integer id;
     private String originAccountCode;
@@ -23,15 +23,5 @@ public class TransferDTO  implements TransactionDTO {
         this.originAccountCode = transferForm.getOriginAccountCode();
         this.destinyAccountCode = transferForm.getDestinyAccountCode();
         this.amount = transferForm.getAmount();
-    }
-
-    @Override
-    public String toString() { //TODO
-        return "TransferDTO{" +
-                ", originAccount='" + originAccountCode + '\'' +
-                ", targetAccount='" + destinyAccountCode + '\'' +
-                ", amount='" + amount + '\'' +
-                ", date=" + date +
-                '}';
     }
 }

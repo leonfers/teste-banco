@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CustomerDTO implements BaseDTO {
+public class CustomerDTO {
 
     private Integer id;
     private String code;
@@ -30,15 +30,5 @@ public class CustomerDTO implements BaseDTO {
         this.code = customer.getCode();
         this.name = customer.getName();
         this.address = customer.getAddress();
-    }
-
-    @Override
-    public String toString() {
-        return "CustomerDTO{" +
-                "code='" + code + '\'' +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", accounts=" + accounts +
-                '}';
     }
 }

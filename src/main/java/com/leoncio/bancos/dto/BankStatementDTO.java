@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class BankStatementDTO implements BaseDTO {
+public class BankStatementDTO {
 
     private String accountCode;
     private List<WithdrawalDTO> withdrawals;
@@ -20,7 +20,7 @@ public class BankStatementDTO implements BaseDTO {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    public List<TransactionDTO> getTimeline(){ //TODO
+    public List<TransactionDTO> getTimeline(){
         throw new UnsupportedOperationException();
     }
 

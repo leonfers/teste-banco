@@ -5,12 +5,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"customer_id", "branch_id"})})
 public class Account {
     private Integer id;
     private String code;
     private Branch branch;
     private Customer customer;
-    private Bank bank;
     private LocalDateTime openingDate;
     private BigDecimal balance = BigDecimal.ZERO;
     private Integer version;
@@ -43,15 +43,6 @@ public class Account {
     }
 
     @ManyToOne
-    public Bank getBank() {
-        return bank;
-    }
-
-    public void setBank(Bank bank) {
-        this.bank = bank;
-    }
-
-    @ManyToOne
     public Customer getCustomer() {
         return customer;
     }
@@ -79,6 +70,8 @@ public class Account {
         this.balance = balance;
     }
 
+    @Version
+    @Column(columnDefinition = "default 0")
     public Integer getVersion() {
         return version;
     }

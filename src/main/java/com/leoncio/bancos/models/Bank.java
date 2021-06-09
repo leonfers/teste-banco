@@ -17,7 +17,6 @@ public class Bank {
     private String name;
     private String code;
     private List<Branch> branches = new ArrayList<>();
-    private List<Account> accounts = new ArrayList<>();
 
     public void setId(Integer id) {
         this.id = id;
@@ -29,6 +28,7 @@ public class Bank {
         return id;
     }
 
+    @Column(unique = true)
     public String getName() {
         return name;
     }
@@ -37,6 +37,7 @@ public class Bank {
         this.name = name;
     }
 
+    @Column(unique = true)
     public String getCode() {
         return code;
     }
@@ -52,14 +53,5 @@ public class Bank {
 
     public void setBranches(List<Branch> branches) {
         this.branches = branches;
-    }
-
-    @OneToMany(mappedBy = "bank", fetch = FetchType.LAZY)
-    public List<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
     }
 }

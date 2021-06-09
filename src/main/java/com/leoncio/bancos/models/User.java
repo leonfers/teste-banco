@@ -1,7 +1,6 @@
 package com.leoncio.bancos.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,10 +15,12 @@ public class User {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
 
+    @Column(unique = true)
     public String getEmail() {
         return email;
     }
