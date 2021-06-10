@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Entity
@@ -16,6 +18,11 @@ public class Account {
     private BigDecimal balance = BigDecimal.ZERO;
     private Integer version;
     private User user;
+
+    private List<Withdrawal> withdrawals = new ArrayList<>();
+    private List<Transfer> incomingTransfers = new ArrayList<>();
+    private List<Transfer> outgoingTransfers = new ArrayList<>();
+    private List<Deposit> deposits = new ArrayList<>();
 
     public Account(Branch branch, LocalDateTime openingDate, User user) {
         this.branch = branch;
@@ -77,5 +84,42 @@ public class Account {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+
+    @OneToMany(mappedBy = "origin", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    public List<Withdrawal> getWithdrawals() {
+        return withdrawals;
+    }
+
+    public void setWithdrawals(List<Withdrawal> withdrawals) {
+        this.withdrawals = withdrawals;
+    }
+
+    @OneToMany(mappedBy = "destiny", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    public List<Transfer> getIncomingTransfers() {
+        return incomingTransfers;
+    }
+
+    public void setIncomingTransfers(List<Transfer> transfers) {
+        this.incomingTransfers = transfers;
+    }
+
+    @OneToMany(mappedBy = "origin", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    public List<Transfer> getOutgoingTransfers() {
+        return outgoingTransfers;
+    }
+
+    public void setOutgoingTransfers(List<Transfer> outgoingTransfers) {
+        this.outgoingTransfers = outgoingTransfers;
+    }
+
+    @OneToMany(mappedBy = "destiny", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    public List<Deposit> getDeposits() {
+        return deposits;
+    }
+
+    public void setDeposits(List<Deposit> deposits) {
+        this.deposits = deposits;
     }
 }

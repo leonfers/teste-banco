@@ -109,10 +109,24 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> handleAllUncaughtException(
-            RuntimeException exception,
+            RuntimeException ex,
+            HttpHeaders headers,
+            HttpStatus status,
             WebRequest request
     ) {
-        throw new UnsupportedOperationException();
+        List<ErrorDTO> errors = new ArrayList<>();
+        Response response = new Response();
+        response.setErrors(errors);
+
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setCode(500);
+        errorDTO.setTitle("Unknown error");
+        errorDTO.setDetail("An error occurred at our servers, rest assured that our team will deal with it as soon as possible!");
+        errorDTO.setPath(((ServletWebRequest) request).getRequest().getRequestURL().toString());
+        errorDTO.setTimestamp(LocalDateTime.now());
+        errors.add(errorDTO);
+        return handleExceptionInternal(
+                ex, response, headers, status, request);
     }
 
 }

@@ -1,0 +1,2157 @@
+{
+	"info": {
+		"_postman_id": "e3a436fa-2105-489d-a7a2-9af9e238b4c2",
+		"name": "BANCOS-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Autenticação",
+			"item": [
+				{
+					"name": "Criar Usuário",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Leoncio\",\n\t\"email\":\"leonfersn@mail.com\",\n\t\"password\":\"123456\", \n\t\"account\":{\n\t\t\"branchId\": 1\n\t}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Cria Usuário e Conta",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\":\"Leoncio\",\n\t\"email\":\"leonfersn@bols.com\",\n\t\"password\":\"1234567\", \n\t\"account\":{\n\t\t\"branchId\": 1\n\t}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/user",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": null,
+							"cookie": [],
+							"body": "{\n  \"id\": 14,\n  \"name\": \"Leoncio\",\n  \"email\": \"leonfersn@bols.com\",\n  \"accountDTO\": {\n    \"branchId\": 1,\n    \"id\": 21,\n    \"userId\": 14\n  },\n  \"createdAt\": \"2021-06-09T21:22:03.133464\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Gerar Tokens de Acesso e Refresh",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "client",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "leonfersn@bols.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234567",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/oauth/token",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Gerar Tokens de Acesso e Refresh",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "leonfersn@bols.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "1234567",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:8000/oauth/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-store"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 00:26:18 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access_token\": \"935b35fa-8006-49e6-8951-711f42f5a7ec\",\n    \"token_type\": \"bearer\",\n    \"refresh_token\": \"bd5eaec8-73c5-4d68-b361-4f45a6e1c483\",\n    \"expires_in\": 299,\n    \"scope\": \"all\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Refresh Access Token",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "{{client_secret}}",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "{{client_id}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "refresh_token",
+									"type": "text"
+								},
+								{
+									"key": "refresh_token",
+									"value": "{{refresh_token}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/oauth/token",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Gerar token de acesso a partir do Refresh Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "refresh_token",
+											"type": "text"
+										},
+										{
+											"key": "refresh_token",
+											"value": "{{refresh_token}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}/oauth/token",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Cache-Control",
+									"value": "no-store"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 00:34:26 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access_token\": \"5418a43d-802a-446f-ae50-c3b163d281aa\",\n    \"token_type\": \"bearer\",\n    \"refresh_token\": \"2d170cb6-5878-40e9-81e2-ae06dfc6d3b6\",\n    \"expires_in\": 299,\n    \"scope\": \"all\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Transaões",
+			"item": [
+				{
+					"name": "Saque",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"originAccountId\":\"5\",\n\t\"amount\": 50.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transactions/withdrawal",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions",
+								"withdrawal"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Saque",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"originAccountId\":\"5\",\n\t\"amount\": 50.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/transactions/withdrawal",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"transactions",
+										"withdrawal"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 01:41:30 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 5,\n        \"originAccountId\": 5,\n        \"amount\": 50,\n        \"date\": \"2021-06-09T22:41:30.132977\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Depósito",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"destinyAccountId\":\"5\",\n\t\"amount\": 50.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transactions/deposit",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions",
+								"deposit"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Depósito",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"destinyAccountId\":\"5\",\n\t\"amount\": 50.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/transactions/deposit",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"transactions",
+										"deposit"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 01:40:18 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 4,\n        \"destinyAccountId\": 5,\n        \"amount\": 50,\n        \"date\": \"2021-06-09T22:40:18.007844\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Transferencia",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \n    \"originAccountId\":\"5\",\n\t\"destinyAccountId\":\"6\",\n\t\"amount\": 50.0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/transactions/transfer",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"transactions",
+								"transfer"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Transferencia",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{   \n    \"originAccountId\":\"5\",\n\t\"destinyAccountId\":\"6\",\n\t\"amount\": 50.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/transactions/transfer",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"transactions",
+										"transfer"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 01:42:48 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 8,\n        \"originAccountId\": 5,\n        \"destinyAccountId\": 6,\n        \"amount\": 50,\n        \"date\": \"2021-06-09T22:42:48.497863\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Contas",
+			"item": [
+				{
+					"name": "Criar Conta",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"branchId\":4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/accounts",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"accounts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Criar Conta",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"branchId\":4\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/accounts",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"accounts"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 01:31:11 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"branchId\": 4,\n        \"id\": 16\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Listar Contas",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/accounts",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"accounts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Listar Contas",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/accounts",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"accounts"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 01:28:23 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 5,\n            \"branchCode\": \"5\",\n            \"userId\": 2,\n            \"balance\": 0,\n            \"openingDate\": \"2021-06-09T22:05:50\",\n            \"bankCode\": \"341\",\n            \"bankName\": \"ITAÚ UNIBANCO S.A\"\n        },\n        {\n            \"id\": 6,\n            \"branchCode\": \"5\",\n            \"userId\": 4,\n            \"balance\": 0,\n            \"openingDate\": \"2021-06-09T22:05:50\",\n            \"bankCode\": \"341\",\n            \"bankName\": \"ITAÚ UNIBANCO S.A\"\n        },\n        {\n            \"id\": 7,\n            \"branchCode\": \"0001\",\n            \"userId\": 2,\n            \"balance\": 0,\n            \"openingDate\": \"2021-06-09T22:05:50\",\n            \"bankCode\": \"380\",\n            \"bankName\": \"PicPay Servicos S.A.\"\n        },\n        {\n            \"id\": 8,\n            \"branchCode\": \"0001\",\n            \"userId\": 4,\n            \"balance\": 0,\n            \"openingDate\": \"2021-06-09T22:05:51\",\n            \"bankCode\": \"380\",\n            \"bankName\": \"PicPay Servicos S.A.\"\n        },\n        {\n            \"id\": 9,\n            \"branchCode\": \"0001\",\n            \"userId\": 2,\n            \"balance\": 0,\n            \"openingDate\": \"2021-06-09T22:05:51\",\n            \"bankCode\": \"077\",\n            \"bankName\": \"BANCO INTER S.A\"\n        },\n        {\n            \"id\": 11,\n            \"branchCode\": \"0001\",\n            \"userId\": 2,\n            \"balance\": 0,\n            \"openingDate\": \"2021-06-09T22:05:51\",\n            \"bankCode\": \"341\",\n            \"bankName\": \"ITAÚ UNIBANCO S.A\"\n        },\n        {\n            \"id\": 12,\n            \"branchCode\": \"0001\",\n            \"userId\": 4,\n            \"balance\": 0,\n            \"openingDate\": \"2021-06-09T22:05:51\",\n            \"bankCode\": \"341\",\n            \"bankName\": \"ITAÚ UNIBANCO S.A\"\n        },\n        {\n            \"id\": 13,\n            \"branchCode\": \"0001\",\n            \"userId\": 2,\n            \"balance\": 0,\n            \"openingDate\": \"2021-06-09T22:05:51\",\n            \"bankCode\": \"104\",\n            \"bankName\": \"CAIXA ECONÔMICA FEDERAL\"\n        },\n        {\n            \"id\": 14,\n            \"branchCode\": \"0001\",\n            \"userId\": 4,\n            \"balance\": 0,\n            \"openingDate\": \"2021-06-09T22:05:51\",\n            \"bankCode\": \"104\",\n            \"bankName\": \"CAIXA ECONÔMICA FEDERAL\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Editar Conta",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"branchId\":\"5\",\n    \"userId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/accounts/9",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"accounts",
+								"9"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Editar Conta",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"branchId\":\"5\",\n    \"userId\": 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/accounts/9",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"accounts",
+										"9"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 01:26:28 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"branchId\": 5,\n        \"id\": 9,\n        \"userId\": 3\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Remover Conta",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/accounts/10",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"accounts",
+								"10"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Remover Conta",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/accounts/10",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"accounts",
+										"10"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 01:21:48 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": \"Account deleted\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Consultar Extrato",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/accounts/bank-statement/5?startDate=2021-01-01&endDate=2021-12-31",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"accounts",
+								"bank-statement",
+								"5"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2021-01-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2021-12-31"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Consultar Extrato",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/accounts/bank-statement/5?startDate=2021-01-01&endDate=2021-12-31",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"accounts",
+										"bank-statement",
+										"5"
+									],
+									"query": [
+										{
+											"key": "startDate",
+											"value": "2021-01-01"
+										},
+										{
+											"key": "endDate",
+											"value": "2021-12-31"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 01:40:34 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"branchCode\": \"5\",\n        \"bankCode\": \"341\",\n        \"bankName\": \"ITAÚ UNIBANCO S.A\",\n        \"currentBalance\": 200,\n        \"date\": \"2021-06-09T22:40:34.415283\",\n        \"credit\": 200,\n        \"total\": 200,\n        \"debit\": 0,\n        \"timeline\": [\n            {\n                \"id\": 1,\n                \"destinyAccountId\": 5,\n                \"amount\": 50,\n                \"date\": \"2021-06-09T22:40:13\"\n            },\n            {\n                \"id\": 2,\n                \"destinyAccountId\": 5,\n                \"amount\": 50,\n                \"date\": \"2021-06-09T22:40:17\"\n            },\n            {\n                \"id\": 3,\n                \"destinyAccountId\": 5,\n                \"amount\": 50,\n                \"date\": \"2021-06-09T22:40:17\"\n            },\n            {\n                \"id\": 4,\n                \"destinyAccountId\": 5,\n                \"amount\": 50,\n                \"date\": \"2021-06-09T22:40:18\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Agencias",
+			"item": [
+				{
+					"name": "Cadastrar Agência",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"code\":\"5\",\n\t\"bankCode\":\"237\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/branches",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"branches"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Cadastrar Agência",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"code\":\"5\",\n\t\"bankCode\":\"237\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/branches",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"branches"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 01:19:08 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 8,\n        \"code\": \"5\",\n        \"bankCode\": \"237\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Listar Agências",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/branches",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"branches"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Listar Agências",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/branches",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"branches"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 01:16:25 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 4,\n            \"code\": \"0001\",\n            \"bankCode\": \"380\",\n            \"bankName\": \"PicPay Servicos S.A.\"\n        },\n        {\n            \"id\": 5,\n            \"code\": \"0001\",\n            \"bankCode\": \"077\",\n            \"bankName\": \"BANCO INTER S.A\"\n        },\n        {\n            \"id\": 6,\n            \"code\": \"0001\",\n            \"bankCode\": \"341\",\n            \"bankName\": \"ITAÚ UNIBANCO S.A\"\n        },\n        {\n            \"id\": 7,\n            \"code\": \"0001\",\n            \"bankCode\": \"104\",\n            \"bankName\": \"CAIXA ECONÔMICA FEDERAL\"\n        },\n        {\n            \"id\": 3,\n            \"code\": \"5\",\n            \"bankCode\": \"341\",\n            \"bankName\": \"ITAÚ UNIBANCO S.A\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Editar Agência",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"code\":\"5\",\n\t\"bankCode\":\"237\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/branches/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"branches",
+								"3"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Editar Agência",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"code\":\"5\",\n\t\"bankCode\":\"237\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/branches/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"branches",
+										"3"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 01:10:50 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 3,\n        \"code\": \"5\",\n        \"bankCode\": \"237\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Remover Agência",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/branches/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"branches",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Remover Agência",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/branches/2",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"branches",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 01:09:03 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": \"Branch deleted\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Bancos",
+			"item": [
+				{
+					"name": "Cadastrar um novo banco",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "accessToken",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"code\":\"1\",\n\t\"name\":\"Banco de Teste\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/banks",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"banks"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Cadastro de Novo Banco",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"code\":\"1\",\n\t\"name\":\"Banco de Teste\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/banks",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"banks"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 00:46:37 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 8,\n        \"code\": \"1\",\n        \"name\": \"Banco de Teste\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Listar Bancos",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "accessToken",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/banks",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"banks"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Listar Bancos",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/banks",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"banks"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 00:48:06 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": 1,\n            \"code\": \"001\",\n            \"name\": \"BANCO DO BRASIL S.A\"\n        },\n        {\n            \"id\": 2,\n            \"code\": \"237\",\n            \"name\": \"BRADESCO S.A\"\n        },\n        {\n            \"id\": 3,\n            \"code\": \"260\",\n            \"name\": \"NU PAGAMENTOS S.A \"\n        },\n        {\n            \"id\": 4,\n            \"code\": \"380\",\n            \"name\": \"PicPay Servicos S.A.\"\n        },\n        {\n            \"id\": 5,\n            \"code\": \"077\",\n            \"name\": \"BANCO INTER S.A\"\n        },\n        {\n            \"id\": 6,\n            \"code\": \"341\",\n            \"name\": \"ITAÚ UNIBANCO S.A\"\n        },\n        {\n            \"id\": 7,\n            \"code\": \"104\",\n            \"name\": \"CAIXA ECONÔMICA FEDERAL\"\n        },\n        {\n            \"id\": 8,\n            \"code\": \"1\",\n            \"name\": \"Banco de Teste\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Editar Banco",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "accessToken",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"code\":\"5555\",\n    \"name\":\"Banco do brasil atualizado\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/banks/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"banks",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Atualizando banco",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"code\":\"5555\",\n    \"name\":\"Banco do brasil atualizado\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/banks/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"banks",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Jun 2021 00:50:10 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": {\n        \"id\": 1,\n        \"code\": \"5555\",\n        \"name\": \"Banco do brasil atualizado\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "tokenType",
+									"value": "",
+									"type": "string"
+								},
+								{
+									"key": "accessToken",
+									"value": "{{access_token}}",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/banks/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"banks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

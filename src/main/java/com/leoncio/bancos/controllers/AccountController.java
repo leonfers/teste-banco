@@ -15,7 +15,7 @@ import java.time.LocalDate;
 
 @RestController
 @RequestMapping("accounts")
-@Secured({Const.ROLE_CLIENT, Const.ROLE_ADMIN})
+@Secured({Const.ROLE_CLIENT})
 public class AccountController {
 
     private final AccountService accountService;

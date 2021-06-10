@@ -47,7 +47,7 @@ public class Branch {
         this.bank = bank;
     }
 
-    @OneToMany(mappedBy = "branch", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "branch", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Account> getAccounts() {
         return accounts;
     }
