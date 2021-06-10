@@ -41,9 +41,7 @@ mvn spring-boot:run -Dspring-boot.run.jvmArguments="-DCLIENT_ID=client -DCLIENT_
 
 #### 3.5 Documentação da API pode ser encontrada no caminho [/swagger.html](http://localhost:8000/swagger.html) da API
 
-#### 3.5 A descrição detalhada a API(Implementação, Teste, Configuração) pode encontrada na [wiki do projeto](https://github.com/leonfers/teste-banco/wiki).
-
-#### 3.6 Insominia Collection com todas as requisições pode ser encontrada [aqui](https://github.com/leonfers/teste-banco/blob/main/src/Insomnia%20Collection%20API)
+#### 3.6 Postman Collection com todas as requisições pode ser encontrada [aqui](https://documenter.getpostman.com/view/8357607/TzeRopRR)
 
 #### 3.7 Rodar testes da aplicação através do maven
 ```bash
