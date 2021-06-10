@@ -1,5 +1,6 @@
 package com.leoncio.bancos.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.leoncio.bancos.form.DepositForm;
 import com.leoncio.bancos.models.Deposit;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DepositDTO implements TransactionDTO, Comparable<TransactionDTO> {
 
     private Integer id;

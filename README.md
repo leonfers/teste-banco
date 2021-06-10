@@ -1,8 +1,8 @@
-### Projeto Banks
+### Projeto Bancos
 #### Desafio - Crie um banco de maneira fácil
 1. O desafio envolve a implementação de uma API Restful genérica para serviços bancários.
 
-### 2.Tecnologias
+#### 2.Tecnologias
 * Java 11 (OpenJDK)
 * Maven (3.8.1)
 * Springboot (2.5)
@@ -14,7 +14,7 @@
 1. Instalar [OpenJDK 11](https://openjdk.java.net/install/) 
 2. Instalar [Maven](https://maven.apache.org/install.html)
 3. Instalar [Mysql8](https://dev.mysql.com/downloads/)
-4. Intalar IDE de preferência (Ex: [IntelliJ IDEA](https://www.jetbrains.com/idea/download/))
+4. De preferência Instalar uma IDE (Ex: [IntelliJ IDEA](https://www.jetbrains.com/idea/download/))
 
 #### 3.2 Variáveis de ambiente
 >-DCLIENT_ID=client  (Cient ID usado para a Autenticação OAUTH2)
@@ -63,7 +63,7 @@ A API Bancos conta com os seguintes Módulos
 
 #### 4.1.1 User (Usuários)
 Permite a gerência de usuários (cadastro, listagem e edição)
-#### 4.1.2 Security (Autentição)
+#### 4.1.2 Security (Autenticação)
 Permite a autenticação na API
 #### 4.1.3 Banks (Bancos)
 Permite a gerência de bancos (cadastro, listagem, edição, remoção)
@@ -77,6 +77,6 @@ Permite a realizar transações (saque, depósito, transferência)
 <!-- CONTACT -->
 ### Contact
 
-Leoncio Ferreira - [LinkedIn](https://www.linkedin.com/in/leoncio-ferreira/) - leonfers@hotmai.com
+Leoncio Ferreira - [LinkedIn](https://www.linkedin.com/in/leoncio-ferreira/) - leonfers@hotmail.com
 
 Project Link: [https://github.com/leonfers/teste-banco](https://github.com/leonfers/teste-banco)

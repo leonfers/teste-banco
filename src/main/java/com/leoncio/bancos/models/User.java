@@ -1,5 +1,7 @@
 package com.leoncio.bancos.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.leoncio.bancos.dto.AccountDTO;
 import com.leoncio.bancos.form.AccountForm;
 import lombok.Getter;
@@ -8,13 +10,14 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class User {
 
     @Id
@@ -69,5 +72,4 @@ public class User {
         this.roles = roles;
         this.password = password;
     }
-
 }

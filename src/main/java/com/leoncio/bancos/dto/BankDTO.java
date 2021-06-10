@@ -1,5 +1,6 @@
 package com.leoncio.bancos.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.leoncio.bancos.form.BankForm;
 import com.leoncio.bancos.models.Bank;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BankDTO {
 
     private Integer id;

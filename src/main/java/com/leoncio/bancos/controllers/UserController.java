@@ -2,6 +2,7 @@ package com.leoncio.bancos.controllers;
 
 import com.leoncio.bancos.config.Const;
 import com.leoncio.bancos.dto.AccountDTO;
+import com.leoncio.bancos.dto.UserDTO;
 import com.leoncio.bancos.models.User;
 import com.leoncio.bancos.repositories.RoleRepository;
 import com.leoncio.bancos.repositories.UserRepository;
@@ -42,16 +43,11 @@ public class UserController {
 
 
     @PostMapping
-    @Transactional
     public ResponseEntity<User> save(@RequestBody @Valid User user) {
-        user.setRoles(roleRepository.findAll());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setCreatedAt(LocalDateTime.now());
-        user = this.userRepository.save(user);
-        AccountDTO accountDTO = new AccountDTO(user.getAccount());
-        accountDTO.setUserId(user.getId());
-        user.setAccountDTO(accountService.save(accountDTO));
+        user = createUserAndAccount(user);
         user.setAccount(null);
+        user.setRoles(null);
+        user.setPassword(null);
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
 
@@ -70,6 +66,18 @@ public class UserController {
     ) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("name"));
         return new ResponseEntity<>(userRepository.findAll(pageable), HttpStatus.OK);
+    }
+
+    @Transactional
+    public User createUserAndAccount(User user){
+        user.setRoles(roleRepository.findAll());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setCreatedAt(LocalDateTime.now());
+        user = this.userRepository.save(user);
+        AccountDTO accountDTO = new AccountDTO(user.getAccount());
+        accountDTO.setUserId(user.getId());
+        user.setAccountDTO(accountService.save(accountDTO));
+        return user;
     }
 
 

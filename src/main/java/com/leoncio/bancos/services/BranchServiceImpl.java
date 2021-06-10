@@ -2,6 +2,7 @@ package com.leoncio.bancos.services;
 
 import com.leoncio.bancos.dto.BranchDTO;
 import com.leoncio.bancos.errorhandling.exceptions.DuplicateFoundException;
+import com.leoncio.bancos.errorhandling.exceptions.ItemNotFoundException;
 import com.leoncio.bancos.models.Bank;
 import com.leoncio.bancos.models.Branch;
 import com.leoncio.bancos.repositories.BankRepository;
@@ -35,7 +36,10 @@ public class BranchServiceImpl implements BranchService {
             } else {
                 branch = this.branchRepository.getById(branchDTO.getId());
             }
-            Bank bank = bankRepository.findByCode(branchDTO.getCode());
+            Bank bank = bankRepository.findByCode(branchDTO.getBankCode());
+            if(bank == null){
+                throw new ItemNotFoundException("There is no Bank with the code "+branchDTO.getBankName());
+            }
             branch.setBank(bank);
             branch.setCode(branchDTO.getCode());
             branch = branchRepository.save(branch);

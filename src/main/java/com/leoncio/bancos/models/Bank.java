@@ -50,7 +50,7 @@ public class Bank {
         this.code = code;
     }
 
-    @OneToMany(mappedBy = "bank", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "bank", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Branch> getBranches() {
         return branches;
     }
